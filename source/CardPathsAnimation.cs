@@ -18,28 +18,28 @@ using PrivateImplementationDetails_803344C7;
 using UnityEngine;
 
 // Token: 0x02000C4A RID: 3146
-public class CardPathsAnimation : MonoBehaviour, IApplicationQuitHandler, IEnumerator, IRenderRequester
+public class CardPathsAnimation : MonoBehaviour, IRenderRequester, IEnumerator, IApplicationQuitHandler
 {
-	// Token: 0x060038A1 RID: 14497 RVA: 0x00033D57 File Offset: 0x00031F57
+	// Token: 0x060038A1 RID: 14497
 	public CardPathsAnimation()
 	{
 	}
 
-	// Token: 0x060038A2 RID: 14498 RVA: 0x00033D71 File Offset: 0x00031F71
+	// Token: 0x060038A2 RID: 14498
 	[CompilerGenerated]
 	public bool get_Completed()
 	{
-		return this.Completed_k__BackingField;
+		return this.Completed;
 	}
 
-	// Token: 0x060038A3 RID: 14499 RVA: 0x00033D79 File Offset: 0x00031F79
+	// Token: 0x060038A3 RID: 14499
 	[CompilerGenerated]
 	private void set_Completed(bool value)
 	{
-		this.Completed_k__BackingField = value;
+		this.Completed = value;
 	}
 
-	// Token: 0x060038A4 RID: 14500 RVA: 0x00033D82 File Offset: 0x00031F82
+	// Token: 0x060038A4 RID: 14500
 	protected virtual void OnDestroy()
 	{
 		if (!this.quitting && this.renderers != null)
@@ -49,13 +49,13 @@ public class CardPathsAnimation : MonoBehaviour, IApplicationQuitHandler, IEnume
 		}
 	}
 
-	// Token: 0x060038A5 RID: 14501 RVA: 0x00033DAD File Offset: 0x00031FAD
+	// Token: 0x060038A5 RID: 14501
 	void IApplicationQuitHandler.HandleApplicationQuit()
 	{
 		this.quitting = true;
 	}
 
-	// Token: 0x060038A6 RID: 14502 RVA: 0x00033DB6 File Offset: 0x00031FB6
+	// Token: 0x060038A6 RID: 14502
 	public void Init(MatchCardLayer layer, IDictionary<DataComposition, VisibilityConfiguration> initial, IList<DataComposition> animatingCards, params AnimationClip[] curves)
 	{
 		this.Init(layer, initial, animatingCards, null, curves);
@@ -66,7 +66,7 @@ public class CardPathsAnimation : MonoBehaviour, IApplicationQuitHandler, IEnume
 	{
 		if (this.initialized)
 		{
-			throw new InvalidOperationException(CPA_EMPTY_NAME.VY());
+			throw new InvalidOperationException(Constants.VY());
 		}
 		this.layer = new MatchCardLayer?(layer);
 		this.set_Completed(false);
@@ -88,14 +88,14 @@ public class CardPathsAnimation : MonoBehaviour, IApplicationQuitHandler, IEnume
 		}
 		if (curves.Length < 1)
 		{
-			throw new ArgumentException(CPA_EMPTY_NAME.Vy());
+			throw new ArgumentException(Constants.Vy());
 		}
 		foreach (DataComposition dataComposition in animatingCards)
 		{
 			if (!initial.ContainsKey(dataComposition))
 			{
 				EntityComponent one = dataComposition.GetOne<EntityComponent>();
-				throw new ArgumentException(string.Format(CPA_EMPTY_NAME.VZ(), one.GetOne<NameData>().get_Name(), one.get_Parent().GetOne<NameData>().get_Name()));
+				throw new ArgumentException(string.Format(Constants.VZ(), one.GetOne<NameData>().get_Name(), one.get_Parent().GetOne<NameData>().get_Name()));
 			}
 		}
 		this.animatingCards = new List<DataComposition>(animatingCards);
@@ -115,7 +115,7 @@ public class CardPathsAnimation : MonoBehaviour, IApplicationQuitHandler, IEnume
 			{
 				text2 = "player";
 			}
-			File.AppendAllText("send.txt", string.Concat(new string[]
+			File.AppendAllText("sent.txt", string.Concat(new string[]
 			{
 				(text2 != "") ? text2 : "someone",
 				" played ",
@@ -127,21 +127,21 @@ public class CardPathsAnimation : MonoBehaviour, IApplicationQuitHandler, IEnume
 		}
 	}
 
-	// Token: 0x060038A8 RID: 14504 RVA: 0x00033DC4 File Offset: 0x00031FC4
+	// Token: 0x060038A8 RID: 14504
 	public void Play()
 	{
 		if (!this.initialized)
 		{
-			throw new InvalidOperationException(CPA_EMPTY_NAME.sW());
+			throw new InvalidOperationException(Constants.sW());
 		}
 		if (!float.IsNaN(this.startTime))
 		{
-			throw new InvalidOperationException(CPA_EMPTY_NAME.Vz());
+			throw new InvalidOperationException(Constants.Vz());
 		}
 		this.startTime = Time.time;
 	}
 
-	// Token: 0x060038A9 RID: 14505 RVA: 0x000EBA40 File Offset: 0x000E9C40
+	// Token: 0x060038A9 RID: 14505
 	public void UpdateCards(IDictionary<DataComposition, VisibilityConfiguration> cards)
 	{
 		if (this.initialized)
@@ -177,8 +177,8 @@ public class CardPathsAnimation : MonoBehaviour, IApplicationQuitHandler, IEnume
 				if (this.animatingCards.Contains(key))
 				{
 					visibilityConfiguration.GetOne<z>().A = true;
-					global::E.m.DisplayMode displayMode_A = this.initialPositions[key].GetOne<global::E.m>().DisplayMode_A;
-					visibilityConfiguration.GetOne<global::E.m>().DisplayMode_A = displayMode_A;
+					global::E.m.DisplayMode displayMode = this.initialPositions[key].GetOne<global::E.m>().displayMode;
+					visibilityConfiguration.GetOne<global::E.m>().displayMode = displayMode;
 					visibilityConfiguration.GetOne<global::E.L>().A = false;
 				}
 			}
@@ -190,7 +190,7 @@ public class CardPathsAnimation : MonoBehaviour, IApplicationQuitHandler, IEnume
 		}
 	}
 
-	// Token: 0x060038AA RID: 14506 RVA: 0x000EBBE4 File Offset: 0x000E9DE4
+	// Token: 0x060038AA RID: 14506
 	private void configurePaths(IDictionary<DataComposition, VisibilityConfiguration> cards)
 	{
 		this.paths = new Dictionary<DataComposition, PathAnimator>();
@@ -222,7 +222,7 @@ public class CardPathsAnimation : MonoBehaviour, IApplicationQuitHandler, IEnume
 					}
 					if (animationClip != null)
 					{
-						PathAnimator component = new GameObject(CPA_EMPTY_NAME.lg(), new Type[]
+						PathAnimator component = new GameObject(Constants.lg(), new Type[]
 						{
 							typeof(Animation),
 							typeof(dwd.core.animation.paths.Path),
@@ -244,32 +244,32 @@ public class CardPathsAnimation : MonoBehaviour, IApplicationQuitHandler, IEnume
 		}
 	}
 
-	// Token: 0x060038AB RID: 14507 RVA: 0x00033DFC File Offset: 0x00031FFC
+	// Token: 0x060038AB RID: 14507
 	public int get_Layer()
 	{
 		return (int)this.layer.Value;
 	}
 
-	// Token: 0x060038AC RID: 14508 RVA: 0x00033E09 File Offset: 0x00032009
+	// Token: 0x060038AC RID: 14508
 	private static bool shouldMove(GlobalTransform a, GlobalTransform b)
 	{
 		return !a.Approximately(b);
 	}
 
-	// Token: 0x060038AD RID: 14509 RVA: 0x00033E16 File Offset: 0x00032016
+	// Token: 0x060038AD RID: 14509
 	bool IEnumerator.MoveNext()
 	{
 		return !this.get_Completed();
 	}
 
-	// Token: 0x060038AE RID: 14510 RVA: 0x0001113A File Offset: 0x0000F33A
+	// Token: 0x060038AE RID: 14510
 	void IEnumerator.Reset()
 	{
 		throw new NotSupportedException();
 	}
 
-	// Token: 0x170005C7 RID: 1479
-	// (get) Token: 0x060038AF RID: 14511
+	// Token: 0x170007E3 RID: 2019
+	// (get) Token: 0x0600591B RID: 22811
 	public extern object Current { get; }
 
 	// Token: 0x04003474 RID: 13428
@@ -292,7 +292,7 @@ public class CardPathsAnimation : MonoBehaviour, IApplicationQuitHandler, IEnume
 
 	// Token: 0x0400347A RID: 13434
 	[CompilerGenerated]
-	private bool Completed_k__BackingField;
+	private bool Completed;
 
 	// Token: 0x0400347B RID: 13435
 	private float startTime = float.NaN;

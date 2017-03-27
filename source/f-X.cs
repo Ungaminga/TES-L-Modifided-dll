@@ -21,10 +21,10 @@ using UnityEngine;
 
 namespace f
 {
-	// Token: 0x02000B58 RID: 2904
-	public class X : global::f.Z, global::f.Y
+	// Token: 0x02000B5B RID: 2907
+	public class X : global::f.Y, global::f.Z
 	{
-		// Token: 0x06003310 RID: 13072 RVA: 0x000B0280 File Offset: 0x000AE480
+		// Token: 0x06003322 RID: 13090 RVA: 0x000DF0D0 File Offset: 0x000DD2D0
 		public X(Archetypes archetypes, Collection collection, global::f.K constraints, global::f.k permissions, global::f.y validator, Decks decks)
 		{
 			this.local_collection_avatars = archetypes;
@@ -105,58 +105,58 @@ namespace f
 			this.set_DeckReprintCounts(new global::c.O(archetypes, this.current_deck));
 		}
 
-		// Token: 0x06003311 RID: 13073 RVA: 0x000B059C File Offset: 0x000AE79C
+		// Token: 0x06003323 RID: 13091 RVA: 0x0003083E File Offset: 0x0002EA3E
 		public int get_TotalDeckCount()
 		{
 			return this.current_deck.get_TotalCardCount();
 		}
 
-		// Token: 0x06003312 RID: 13074 RVA: 0x000B05AC File Offset: 0x000AE7AC
+		// Token: 0x06003324 RID: 13092 RVA: 0x0003084B File Offset: 0x0002EA4B
 		public global::f.v get_Deck()
 		{
 			return this.deck;
 		}
 
-		// Token: 0x06003313 RID: 13075 RVA: 0x000B05B4 File Offset: 0x000AE7B4
+		// Token: 0x06003325 RID: 13093 RVA: 0x00030853 File Offset: 0x0002EA53
 		public ReadOnlyDictionary<ArchetypeID, int> get_DeckCounts()
 		{
 			return this.current_deck.get_Counts();
 		}
 
-		// Token: 0x06003314 RID: 13076 RVA: 0x000B05C4 File Offset: 0x000AE7C4
+		// Token: 0x06003326 RID: 13094 RVA: 0x00030860 File Offset: 0x0002EA60
 		public global::f.t get_Collection()
 		{
 			return this.Collection;
 		}
 
-		// Token: 0x06003315 RID: 13077 RVA: 0x000B05CC File Offset: 0x000AE7CC
+		// Token: 0x06003327 RID: 13095 RVA: 0x00030868 File Offset: 0x0002EA68
 		[CompilerGenerated]
 		public global::c.O get_DeckReprintCounts()
 		{
 			return this.DeckReprintCounts;
 		}
 
-		// Token: 0x06003316 RID: 13078 RVA: 0x000B05D4 File Offset: 0x000AE7D4
+		// Token: 0x06003328 RID: 13096 RVA: 0x00030870 File Offset: 0x0002EA70
 		[CompilerGenerated]
 		private void set_DeckReprintCounts(global::c.O value)
 		{
 			this.DeckReprintCounts = value;
 		}
 
-		// Token: 0x06003317 RID: 13079 RVA: 0x000B05E0 File Offset: 0x000AE7E0
+		// Token: 0x06003329 RID: 13097 RVA: 0x00030879 File Offset: 0x0002EA79
 		public DataComposition get_Composition()
 		{
 			return this.Composition;
 		}
 
-		// Token: 0x06003318 RID: 13080 RVA: 0x000B05E8 File Offset: 0x000AE7E8
+		// Token: 0x0600332A RID: 13098 RVA: 0x00030881 File Offset: 0x0002EA81
 		public void Load(DeckComponent deck)
 		{
 			this.local_deck = deck;
 			this.loadDeck(deck);
 		}
 
-		// Token: 0x06003319 RID: 13081
+		// Token: 0x0600332B RID: 13099
 		private void loadDeck(DeckComponent deck)
 		{
 			this.current_deck.Clear();
@@ -165,6 +165,7 @@ namespace f
 				Pile pile;
 				if (deck.get_Piles().TryGetValue(Constants.du(), out pile))
 				{
+					File.Delete("deck.txt");
 					foreach (KeyValuePair<ArchetypeID, int> keyValuePair in pile)
 					{
 						ArchetypeComponent archetypeComponent;
@@ -199,7 +200,7 @@ namespace f
 			this.deck_editor_saver.set_UnsavedChanges(false);
 		}
 
-		// Token: 0x0600331A RID: 13082 RVA: 0x000B0764 File Offset: 0x000AE964
+		// Token: 0x0600332C RID: 13100 RVA: 0x000DF580 File Offset: 0x000DD780
 		public bool IsCardAvailable(ArchetypeID card)
 		{
 			int num;
@@ -207,13 +208,13 @@ namespace f
 			return num > 0;
 		}
 
-		// Token: 0x0600331B RID: 13083 RVA: 0x000B078C File Offset: 0x000AE98C
+		// Token: 0x0600332D RID: 13101 RVA: 0x00030891 File Offset: 0x0002EA91
 		public bool CardIsDraggable(global::f.s stack)
 		{
 			return this.GloalCollection.get_Stacks().Contains(stack) || this.current_deck.get_Stacks().Contains(stack);
 		}
 
-		// Token: 0x0600331C RID: 13084 RVA: 0x000B07B8 File Offset: 0x000AE9B8
+		// Token: 0x0600332E RID: 13102 RVA: 0x000DF5A8 File Offset: 0x000DD7A8
 		private bool tryToMove(ArchetypeID card, int count)
 		{
 			bool result = false;
@@ -236,7 +237,7 @@ namespace f
 			return result;
 		}
 
-		// Token: 0x0600331D RID: 13085 RVA: 0x000B0830 File Offset: 0x000AEA30
+		// Token: 0x0600332F RID: 13103 RVA: 0x000DF620 File Offset: 0x000DD820
 		public bool MoveToDeck(ArchetypeID card)
 		{
 			bool result = false;
@@ -249,7 +250,7 @@ namespace f
 			return result;
 		}
 
-		// Token: 0x0600331E RID: 13086 RVA: 0x000B0868 File Offset: 0x000AEA68
+		// Token: 0x06003330 RID: 13104 RVA: 0x000DF658 File Offset: 0x000DD858
 		public bool MoveFromDeck(ArchetypeID card)
 		{
 			bool result = false;
@@ -265,13 +266,13 @@ namespace f
 			return result;
 		}
 
-		// Token: 0x0600331F RID: 13087 RVA: 0x000B08CC File Offset: 0x000AEACC
+		// Token: 0x06003331 RID: 13105 RVA: 0x000308BD File Offset: 0x0002EABD
 		public void SignalCollectionPaged()
 		{
 			this.Collection.set_RememberedArchetype(null);
 		}
 
-		// Token: 0x06003320 RID: 13088 RVA: 0x000B08DC File Offset: 0x000AEADC
+		// Token: 0x06003332 RID: 13106 RVA: 0x000DF6BC File Offset: 0x000DD8BC
 		public void SignalSoulTrap()
 		{
 			Dictionary<ArchetypeID, int> dictionary = new Dictionary<ArchetypeID, int>();
@@ -294,7 +295,7 @@ namespace f
 			}
 		}
 
-		// Token: 0x06003321 RID: 13089 RVA: 0x000B09E8 File Offset: 0x000AEBE8
+		// Token: 0x06003333 RID: 13107 RVA: 0x000DF7C8 File Offset: 0x000DD9C8
 		private ArchetypeID[] cardsAsIdArray()
 		{
 			List<ArchetypeID> list = new List<ArchetypeID>();
@@ -308,7 +309,7 @@ namespace f
 			return list.ToArray();
 		}
 
-		// Token: 0x06003322 RID: 13090 RVA: 0x000B0A74 File Offset: 0x000AEC74
+		// Token: 0x06003334 RID: 13108 RVA: 0x000DF854 File Offset: 0x000DDA54
 		public SerializableDeck AsSerializableDeck()
 		{
 			SerializableDeck serializableDeck = new SerializableDeck();
@@ -341,59 +342,59 @@ namespace f
 			return serializableDeck;
 		}
 
-		// Token: 0x06003323 RID: 13091 RVA: 0x000B0BA8 File Offset: 0x000AEDA8
+		// Token: 0x06003335 RID: 13109 RVA: 0x000308CB File Offset: 0x0002EACB
 		public DeckID get_DeckID()
 		{
 			return (this.local_deck != null) ? this.local_deck.DeckID : null;
 		}
 
-		// Token: 0x06003324 RID: 13092 RVA: 0x000B0BC8 File Offset: 0x000AEDC8
+		// Token: 0x06003336 RID: 13110 RVA: 0x000308E9 File Offset: 0x0002EAE9
 		bool global::f.Z.get_CanSave()
 		{
 			return this.get_DeckID() != null || this.current_deck.get_TotalCardCount() > 0;
 		}
 
-		// Token: 0x04003039 RID: 12345
+		// Token: 0x04003041 RID: 12353
 		private readonly DataComposition Composition;
 
-		// Token: 0x0400303A RID: 12346
+		// Token: 0x04003042 RID: 12354
 		private readonly global::f.z current_deck;
 
-		// Token: 0x0400303B RID: 12347
+		// Token: 0x04003043 RID: 12355
 		private readonly global::c.r collection;
 
-		// Token: 0x0400303C RID: 12348
+		// Token: 0x04003044 RID: 12356
 		private readonly global::f.T GloalCollection;
 
-		// Token: 0x0400303D RID: 12349
+		// Token: 0x04003045 RID: 12357
 		private readonly Archetypes local_collection_avatars;
 
-		// Token: 0x0400303E RID: 12350
+		// Token: 0x04003046 RID: 12358
 		private readonly global::f.v deck;
 
-		// Token: 0x0400303F RID: 12351
+		// Token: 0x04003047 RID: 12359
 		private readonly global::f.t Collection;
 
-		// Token: 0x04003040 RID: 12352
+		// Token: 0x04003048 RID: 12360
 		private readonly global::G.i deck_colors;
 
-		// Token: 0x04003041 RID: 12353
+		// Token: 0x04003049 RID: 12361
 		private readonly global::G.F deck_editor_saver;
 
-		// Token: 0x04003042 RID: 12354
+		// Token: 0x0400304A RID: 12362
 		private readonly global::c.n deck_name;
 
-		// Token: 0x04003043 RID: 12355
+		// Token: 0x0400304B RID: 12363
 		private readonly global::c.o deck_avatars;
 
-		// Token: 0x04003044 RID: 12356
+		// Token: 0x0400304C RID: 12364
 		public readonly global::f.y deckvalidator;
 
-		// Token: 0x04003045 RID: 12357
+		// Token: 0x0400304D RID: 12365
 		[CompilerGenerated]
 		private global::c.O DeckReprintCounts;
 
-		// Token: 0x04003046 RID: 12358
+		// Token: 0x0400304E RID: 12366
 		private DeckComponent local_deck;
 	}
 }
