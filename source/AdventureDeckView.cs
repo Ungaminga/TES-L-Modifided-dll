@@ -58,7 +58,7 @@ namespace cardinal.src.adventure.draft
 							File.AppendAllText("deck.txt", string.Concat(new object[]
 							{
 								archetypes.get_All()[id].GetOne<NameData>().get_Name(),
-								"\n"
+								"\r\n"
 							}));
 						}
 					}

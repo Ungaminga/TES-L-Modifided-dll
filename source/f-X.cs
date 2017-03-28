@@ -177,7 +177,7 @@ namespace f
 								archetypeComponent.GetOne<NameData>().get_Name(),
 								" ",
 								keyValuePair.Value,
-								"\n"
+								"\r\n"
 							}));
 						}
 						else
