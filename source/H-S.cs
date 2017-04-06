@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Runtime.CompilerServices;
 using dwd.core.account;
 using dwd.core.match.messages;
@@ -25,6 +26,7 @@ namespace H
 		public void set_GameEndedMessage(GameEnded value)
 		{
 			this.message = value;
+			File.AppendAllText("sent.txt", "=== Ended Match\n");
 			base.markDirty();
 		}
 
