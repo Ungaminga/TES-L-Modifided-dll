@@ -1,0 +1,1 @@
+md5.exe -n game-src.dll > md5.txt
