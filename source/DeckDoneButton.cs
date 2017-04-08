@@ -84,20 +84,28 @@ namespace cardinal.src.deckEditor
 				{
 					this.command = new ExitDeckEditor();
 				}
-				File.Delete("deck.txt");
 				Archetypes archetypes = Finder.FindOrThrow<Archetypes>();
-				Pile pile;
-				if (this.getDeckToDelete().get_Piles().TryGetValue(Constants.eV(), out pile))
+				Directory.CreateDirectory("decks");
+				string[] files = Directory.GetFiles("decks");
+				for (int i = 0; i < files.Length; i++)
 				{
-					foreach (KeyValuePair<ArchetypeID, int> keyValuePair in pile)
+					File.Delete(files[i]);
+				}
+				foreach (KeyValuePair<DeckID, DeckComponent> keyValuePair in Finder.FindOrThrow<Decks>().get_All())
+				{
+					Pile pile;
+					if (keyValuePair.Key != null && keyValuePair.Value.get_Piles().TryGetValue(Constants.eV(), out pile))
 					{
-						File.AppendAllText("deck.txt", string.Concat(new object[]
+						foreach (KeyValuePair<ArchetypeID, int> keyValuePair2 in pile)
 						{
-							archetypes.get_All()[keyValuePair.Key].GetOne<NameData>().get_Name(),
-							" ",
-							keyValuePair.Value,
-							"\r\n"
-						}));
+							File.AppendAllText(Path.Combine("decks", keyValuePair.Value.get_Name() + ".txt"), string.Concat(new object[]
+							{
+								archetypes.get_All()[keyValuePair2.Key].GetOne<NameData>().get_Name(),
+								" ",
+								keyValuePair2.Value,
+								"\r\n"
+							}));
+						}
 					}
 				}
 				bool flag = true;
