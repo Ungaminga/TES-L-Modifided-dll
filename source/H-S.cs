@@ -26,7 +26,17 @@ namespace H
 		public void set_GameEndedMessage(GameEnded value)
 		{
 			this.message = value;
-			File.AppendAllText("sent.txt", "=== Ended Match\n");
+			bool player_lost = false;
+			if (this.message.LoserMap.ContainsKey(this.player))
+			{
+				player_lost = true;
+			}
+			File.AppendAllText("sent.txt", string.Concat(new object[]
+			{
+				"=== Ended Match, ",
+				player_lost ? " you lost." : " opponent lost.",
+				"===\n"
+			}));
 			base.markDirty();
 		}
 
