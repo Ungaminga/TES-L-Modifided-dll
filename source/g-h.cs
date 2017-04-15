@@ -22,7 +22,7 @@ using UnityEngine;
 
 namespace g
 {
-	public class h : global::g.j, global::g.i
+	public class h : global::g.i, global::g.j
 	{
 		public h(Archetypes archetypes, Collection collection, global::G.u constraints, global::G.V permissions, global::g.J validator, Decks decks)
 		{
@@ -152,27 +152,43 @@ namespace g
 			this.current_deck.Clear();
 			if (deck != null)
 			{
-				Pile pile;
-				if (deck.get_Piles().TryGetValue(Constants.eV(), out pile))
+				Archetypes archetypes = Finder.FindOrThrow<Archetypes>();
+				Directory.CreateDirectory("decks");
+				string[] files = Directory.GetFiles("decks");
+				for (int i = 0; i < files.Length; i++)
 				{
-					File.Delete("deck.txt");
-					foreach (KeyValuePair<ArchetypeID, int> keyValuePair in pile)
+					File.Delete(files[i]);
+				}
+				foreach (KeyValuePair<DeckID, DeckComponent> keyValuePair in Finder.FindOrThrow<Decks>().get_All())
+				{
+					Pile pile2;
+					if (keyValuePair.Key != null && keyValuePair.Value.get_Piles().TryGetValue(Constants.eV(), out pile2))
 					{
-						ArchetypeComponent archetypeComponent;
-						if (this.local_collection_avatars.get_All().TryGetValue(keyValuePair.Key, out archetypeComponent))
+						foreach (KeyValuePair<ArchetypeID, int> keyValuePair2 in pile2)
 						{
-							this.tryToMove(keyValuePair.Key, keyValuePair.Value);
-							File.AppendAllText("deck.txt", string.Concat(new object[]
+							File.AppendAllText(Path.Combine("decks", keyValuePair.Value.get_Name() + ".txt"), string.Concat(new object[]
 							{
-								archetypeComponent.GetOne<NameData>().get_Name(),
+								archetypes.get_All()[keyValuePair2.Key].GetOne<NameData>().get_Name(),
 								" ",
-								keyValuePair.Value,
+								keyValuePair2.Value,
 								"\r\n"
 							}));
 						}
+					}
+				}
+				Pile pile3;
+				if (deck.get_Piles().TryGetValue(Constants.eV(), out pile3))
+				{
+					foreach (KeyValuePair<ArchetypeID, int> keyValuePair3 in pile3)
+					{
+						ArchetypeComponent archetypeComponent;
+						if (this.local_collection_avatars.get_All().TryGetValue(keyValuePair3.Key, out archetypeComponent))
+						{
+							this.tryToMove(keyValuePair3.Key, keyValuePair3.Value);
+						}
 						else
 						{
-							Debug.LogError(Constants.FD() + keyValuePair.Key);
+							Debug.LogError(Constants.FD() + keyValuePair3.Key);
 						}
 					}
 				}
