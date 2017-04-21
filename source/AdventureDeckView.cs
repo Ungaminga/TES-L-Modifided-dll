@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using System.Runtime.CompilerServices;
 using dwd.core;
@@ -37,42 +36,36 @@ namespace cardinal.src.adventure.draft
 
 		private IEnumerator Start()
 		{
-			EditDeckProvider editDeckProvider = DataProvider.Get<EditDeckProvider>();
-			if (editDeckProvider.get_Mode() == DeckEditorModes.Quest || editDeckProvider.get_Mode() == DeckEditorModes.Conquest || editDeckProvider.get_Mode() == DeckEditorModes.Chaos)
+			EditDeckProvider provider = DataProvider.Get<EditDeckProvider>();
+			if (provider.get_Mode() == DeckEditorModes.Quest || provider.get_Mode() == DeckEditorModes.Conquest || provider.get_Mode() == DeckEditorModes.Chaos)
 			{
 				Archetypes archetypes = Finder.FindOrThrow<Archetypes>();
-				AdventureProvider adventureProvider = AdventureProvider.Find();
-				File.Delete("deck.txt");
-				using (IEnumerator<ArchetypeID> enumerator = adventureProvider.SelectedAdventure.get_Collection().A.GetEnumerator())
+				AdventureProvider adventure = AdventureProvider.Find();
+				while (adventure.SelectedAdventure.get_DeckInfo() == null)
 				{
-					while (enumerator.MoveNext())
-					{
-						ArchetypeID id = enumerator.Current;
-						if (archetypes.get_All().ContainsKey(id))
-						{
-							File.AppendAllText("deck.txt", string.Concat(new object[]
-							{
-								archetypes.get_All()[id].GetOne<NameData>().get_Name(),
-								"\r\n"
-							}));
-						}
-					}
-					goto IL_11A;
+					yield return null;
 				}
-				IL_103:
-				yield return null;
-				IL_11A:
-				if (adventureProvider.SelectedAdventure.get_DeckInfo() == null)
+				File.Delete("decks\\arena.txt");
+				foreach (ArchetypeID id in adventure.SelectedAdventure.get_Collection().A)
 				{
-					goto IL_103;
+					if (archetypes.get_All().ContainsKey(id))
+					{
+						File.AppendAllText("decks\\arena.txt", string.Concat(new object[]
+						{
+							archetypes.get_All()[id].GetOne<NameData>().get_Name(),
+							"\r\n"
+						}));
+					}
 				}
 				this.set_Validator(new global::H.f());
-				global::f.t t = new global::f.t(editDeckProvider, archetypes, adventureProvider.SelectedAdventure);
-				this.subscriptionProvider.set_Data(t.get_Composition());
+				global::f.t model = new global::f.t(provider, archetypes, adventure.SelectedAdventure);
+				this.subscriptionProvider.set_Data(model.get_Composition());
 				archetypes = null;
-				adventureProvider = null;
+				adventure = null;
 				archetypes = null;
-				adventureProvider = null;
+				adventure = null;
+				archetypes = null;
+				adventure = null;
 			}
 			yield break;
 			yield break;
