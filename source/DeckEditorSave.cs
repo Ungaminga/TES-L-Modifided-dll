@@ -17,7 +17,7 @@ using dwd.core.localization;
 using g;
 using H;
 using hydra.tutorials.commands;
-using PrivateImplementationDetails_CB51A9AC;
+using PrivateImplementationDetails;
 using UnityEngine;
 
 namespace hydra.deckeditor.commands
@@ -49,6 +49,7 @@ namespace hydra.deckeditor.commands
 					yield return endorsement;
 				}
 				allow = !request.get_Denied();
+				request = null;
 				request = null;
 			}
 			if (allow)

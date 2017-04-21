@@ -17,12 +17,12 @@ using f;
 using G;
 using hydra.commerce;
 using i;
-using PrivateImplementationDetails_CB51A9AC;
+using PrivateImplementationDetails;
 using UnityEngine;
 
 namespace g
 {
-	public class h : global::g.i, global::g.j
+	public class h : global::g.j, global::g.i
 	{
 		public h(Archetypes archetypes, Collection collection, global::G.u constraints, global::G.V permissions, global::g.J validator, Decks decks)
 		{
@@ -31,7 +31,7 @@ namespace g
 			global::d.D d = new global::d.D(a);
 			this.current_deck = new global::g.K(archetypes, global::g.k.Sources.Deck, false);
 			this.collection = new global::d.c(archetypes, collection, a, d);
-			this.GloalCollection = new global::i.q(archetypes, true, this.collection, this.current_deck);
+			this.GlobalCollection = new global::i.q(archetypes, true, this.collection, this.current_deck);
 			global::d.Q q = new global::d.Q(this.current_deck);
 			global::D.W w = new global::D.W(this.current_deck, validator);
 			this.deck_colors = new global::g.T(w, q, validator, 1.5f);
@@ -47,7 +47,7 @@ namespace g
 			this.deck_editor_saver = new global::g.p(this);
 			this.deck_name = new global::D.y(q, this.deck_editor_saver, permissions == null || permissions.get_AllowRename(), decks);
 			SinglesCommerceProvider singlesCommerceProvider = SinglesCommerceProvider.Find();
-			this.Collection = new global::g.E(this.GloalCollection, true, new global::g.U[]
+			this.Collection = new global::g.E(this.GlobalCollection, true, new global::g.U[]
 			{
 				this.deck_colors,
 				t,
@@ -209,13 +209,13 @@ namespace g
 		public bool IsCardAvailable(ArchetypeID card)
 		{
 			int num;
-			this.GloalCollection.get_Counts().TryGetValue(card, out num);
+			this.GlobalCollection.get_Counts().TryGetValue(card, out num);
 			return num > 0;
 		}
 
 		public bool CardIsDraggable(global::g.D stack)
 		{
-			return this.GloalCollection.get_Stacks().Contains(stack) || this.current_deck.get_Stacks().Contains(stack);
+			return this.GlobalCollection.get_Stacks().Contains(stack) || this.current_deck.get_Stacks().Contains(stack);
 		}
 
 		private bool tryToMove(ArchetypeID card, int count)
@@ -224,7 +224,7 @@ namespace g
 			if (count > 0)
 			{
 				int num;
-				this.GloalCollection.get_Counts().TryGetValue(card, out num);
+				this.GlobalCollection.get_Counts().TryGetValue(card, out num);
 				int num2 = Mathf.Min(count, num);
 				if (num2 < count)
 				{
@@ -278,10 +278,10 @@ namespace g
 			foreach (global::g.D d in this.deck.get_Stacks())
 			{
 				ArchetypeID a = d.get_Archetype().A;
-				int count = this.GloalCollection.GetCount(a);
+				int count = this.GlobalCollection.GetCount(a);
 				if (count < 0)
 				{
-					Debug.Log(string.Format(Constants.WW(), a, count));
+					Debug.Log(string.Format(Constants.Wx(), a, count));
 					dictionary.Add(a, -count);
 				}
 			}
@@ -355,7 +355,7 @@ namespace g
 
 		private readonly global::d.c collection;
 
-		private readonly global::g.d GloalCollection;
+		private readonly global::g.d GlobalCollection;
 
 		private readonly Archetypes local_collection_avatars;
 

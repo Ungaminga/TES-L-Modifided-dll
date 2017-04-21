@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Runtime.CompilerServices;
 using cardinal.src.match.commands;
@@ -20,12 +19,12 @@ using dwd.core.match.data;
 using dwd.core.match.messages;
 using E;
 using f;
-using h;
 using H;
+using h;
 using hydra.enums;
 using I;
 using i;
-using PrivateImplementationDetails_CB51A9AC;
+using PrivateImplementationDetails;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -35,37 +34,37 @@ public class HydraMatchData : DataProvider
 	[CompilerGenerated]
 	public AccountID get_SelfAccountID()
 	{
-		return this.SelfAccountID;
+		return this.<SelfAccountID>k__BackingField;
 	}
 
 	[CompilerGenerated]
 	private void set_SelfAccountID(AccountID value)
 	{
-		this.SelfAccountID = value;
+		this.<SelfAccountID>k__BackingField = value;
 	}
 
 	[CompilerGenerated]
 	public AccountID get_Player1AccountID()
 	{
-		return this.Player1AccountID;
+		return this.<Player1AccountID>k__BackingField;
 	}
 
 	[CompilerGenerated]
 	private void set_Player1AccountID(AccountID value)
 	{
-		this.Player1AccountID = value;
+		this.<Player1AccountID>k__BackingField = value;
 	}
 
 	[CompilerGenerated]
 	public AccountID get_Player2AccountID()
 	{
-		return this.Player2AccountID;
+		return this.<Player2AccountID>k__BackingField;
 	}
 
 	[CompilerGenerated]
 	private void set_Player2AccountID(AccountID value)
 	{
-		this.Player2AccountID = value;
+		this.<Player2AccountID>k__BackingField = value;
 	}
 
 	public bool get_Observing()
@@ -76,85 +75,85 @@ public class HydraMatchData : DataProvider
 	[CompilerGenerated]
 	public GameID get_GameID()
 	{
-		return this.GameID;
+		return this.<GameID>k__BackingField;
 	}
 
 	[CompilerGenerated]
 	private void set_GameID(GameID value)
 	{
-		this.GameID = value;
+		this.<GameID>k__BackingField = value;
 	}
 
 	[CompilerGenerated]
 	public global::E.m get_InteractionModel()
 	{
-		return this.InteractionModel;
+		return this.<InteractionModel>k__BackingField;
 	}
 
 	[CompilerGenerated]
 	private void set_InteractionModel(global::E.m value)
 	{
-		this.InteractionModel = value;
+		this.<InteractionModel>k__BackingField = value;
 	}
 
 	[CompilerGenerated]
 	public global::H.R get_Entities()
 	{
-		return this.Entities;
+		return this.<Entities>k__BackingField;
 	}
 
 	[CompilerGenerated]
 	private void set_Entities(global::H.R value)
 	{
-		this.Entities = value;
+		this.<Entities>k__BackingField = value;
 	}
 
 	[CompilerGenerated]
 	public global::H.q get_Options()
 	{
-		return this.Options;
+		return this.<Options>k__BackingField;
 	}
 
 	[CompilerGenerated]
 	private void set_Options(global::H.q value)
 	{
-		this.Options = value;
+		this.<Options>k__BackingField = value;
 	}
 
 	[CompilerGenerated]
 	public global::I.z get_Waiting()
 	{
-		return this.Waiting;
+		return this.<Waiting>k__BackingField;
 	}
 
 	[CompilerGenerated]
 	private void set_Waiting(global::I.z value)
 	{
-		this.Waiting = value;
+		this.<Waiting>k__BackingField = value;
 	}
 
 	[CompilerGenerated]
 	public global::H.s get_Mulligan()
 	{
-		return this.Mulligan;
+		return this.<Mulligan>k__BackingField;
 	}
 
 	[CompilerGenerated]
 	private void set_Mulligan(global::H.s value)
 	{
-		this.Mulligan = value;
+		this.<Mulligan>k__BackingField = value;
 	}
 
 	[CompilerGenerated]
 	public bool get_DataInitialized()
 	{
-		return this.DataInitialized;
+		return this.<DataInitialized>k__BackingField;
 	}
 
 	[CompilerGenerated]
 	private void set_DataInitialized(bool value)
 	{
-		this.DataInitialized = value;
+		this.<DataInitialized>k__BackingField = value;
 	}
 
 	public LanePieceIcon GetLaneIconForEntity(EntityID entity)
@@ -197,12 +196,16 @@ public class HydraMatchData : DataProvider
 		}
 	}
 
-	[DebuggerHidden]
 	public IEnumerator Start()
 	{
-		HydraMatchData.Start_Iterator0 start_Iterator = new HydraMatchData.Start_Iterator0();
-		start_Iterator.matchData = this;
-		return start_Iterator;
+		this.set_InteractionModel(new global::E.m());
+		this.set_SelfAccountID(Finder.FindOrThrow<AccountProvider>().get_Account().AccountID);
+		while (!this.get_Initialized())
+		{
+			yield return null;
+		}
+		new MonitorAndDeliverEmotes(this).Execute();
+		yield break;
 	}
 
 	public void InitializeData(SerializedGameState msg)
@@ -210,7 +213,7 @@ public class HydraMatchData : DataProvider
 		this.set_GameID(msg.A);
 		if (this.get_SelfAccountID() == null)
 		{
-			throw new InvalidOperationException(Constants.Xg());
+			throw new InvalidOperationException(Constants.XI());
 		}
 		this.set_Options(new global::H.q(msg.GameOptions));
 		this.CardAnimationsInstantiator.Instantiate();
@@ -284,7 +287,7 @@ public class HydraMatchData : DataProvider
 	{
 		if (!this.get_DataInitialized())
 		{
-			throw new InvalidOperationException(Constants.XH());
+			throw new InvalidOperationException(Constants.Xi());
 		}
 		this.set_Mulligan(new global::H.s(this.get_Entities().Playmat.GetOne<global::H.r>()));
 		this.set_Initialized(true);
@@ -299,7 +302,7 @@ public class HydraMatchData : DataProvider
 	{
 		if (player == null)
 		{
-			UnityEngine.Debug.LogError(Constants.Xh() + emote.A);
+			Debug.LogError(Constants.XJ() + emote.A);
 			emote.SignalComplete();
 		}
 		else
@@ -324,39 +327,9 @@ public class HydraMatchData : DataProvider
 		return this.onDestroyed;
 	}
 
-	[CompilerGenerated]
-	private AccountID SelfAccountID;
-
-	[CompilerGenerated]
-	private AccountID Player1AccountID;
-
-	[CompilerGenerated]
-	private AccountID Player2AccountID;
-
-	[CompilerGenerated]
-	private GameID GameID;
-
-	[CompilerGenerated]
-	private global::E.m InteractionModel;
-
-	[CompilerGenerated]
-	private global::H.R Entities;
-
-	[CompilerGenerated]
-	private global::H.q Options;
-
-	[CompilerGenerated]
-	private global::I.z Waiting;
-
 	public readonly global::I.Y AttackEffects = new global::I.Y();
 
 	public readonly global::H.S MatchEnd = new global::H.S();
-
-	[CompilerGenerated]
-	private global::H.s Mulligan;
-
-	[CompilerGenerated]
-	private bool DataInitialized;
 
 	[HideInInspector]
 	public CardPresentArea Player1PresentLeft;
@@ -401,81 +374,4 @@ public class HydraMatchData : DataProvider
 	public readonly VersionedMap<EntityComponent, ArrowData> Doinkers = new VersionedMap<EntityComponent, ArrowData>();
 
 	private UnityEvent onDestroyed = new UnityEvent();
-
-	[CompilerGenerated]
-	private sealed class Start_Iterator0 : IEnumerator, IDisposable, IEnumerator<object>
-	{
-		[DebuggerHidden]
-		public Start_Iterator0()
-		{
-		}
-
-		public bool MoveNext()
-		{
-			uint pc = (uint)this.PC;
-			this.PC = -1;
-			switch (pc)
-			{
-			case 0u:
-				this.matchData.set_InteractionModel(new global::E.m());
-				this.matchData.set_SelfAccountID(Finder.FindOrThrow<AccountProvider>().get_Account().AccountID);
-				break;
-			case 1u:
-				break;
-			default:
-				return false;
-			}
-			if (!this.matchData.get_Initialized())
-			{
-				this.current = null;
-				if (!this.disposing)
-				{
-					this.PC = 1;
-				}
-				return true;
-			}
-			new MonitorAndDeliverEmotes(this.matchData).Execute();
-			this.PC = -1;
-			return false;
-		}
-
-		object IEnumerator<object>.Current
-		{
-			[DebuggerHidden]
-			get
-			{
-				return this.current;
-			}
-		}
-
-		object IEnumerator.Current
-		{
-			[DebuggerHidden]
-			get
-			{
-				return this.current;
-			}
-		}
-
-		[DebuggerHidden]
-		public void Dispose()
-		{
-			this.disposing = true;
-			this.PC = -1;
-		}
-
-		[DebuggerHidden]
-		public void Reset()
-		{
-			throw new NotSupportedException();
-		}
-
-		internal HydraMatchData matchData;
-
-		internal object current;
-
-		internal bool disposing;
-
-		internal int PC;
-	}
 }

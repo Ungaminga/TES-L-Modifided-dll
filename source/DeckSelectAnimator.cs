@@ -12,7 +12,7 @@ using dwd.core.deck;
 using dwd.core.ui.ugui.tooltips;
 using G;
 using hydra.enums;
-using PrivateImplementationDetails_CB51A9AC;
+using PrivateImplementationDetails;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -58,23 +58,23 @@ namespace cardinal.src.deck.selection
 			value = 0;
 			IL_84:
 			DeckComponent selected = data.GetOne<global::d.U>().get_Selected();
-			this.dialogAnimator.SetInteger(Constants.mU(), value);
+			this.dialogAnimator.SetInteger(Constants.mu(), value);
 			bool value2 = selected != null;
-			this.dialogAnimator.SetBool(Constants.mu(), value2);
+			this.dialogAnimator.SetBool(Constants.mV(), value2);
 			this.dialogAnimator.enabled = true;
-			this.dialogAnimator.SetTrigger(Constants.mV());
+			this.dialogAnimator.SetTrigger(Constants.mv());
 			this.updatePlayButton(selected);
 		}
 
 		private void close()
 		{
-			this.dialogAnimator.SetTrigger(Constants.mv());
+			this.dialogAnimator.SetTrigger(Constants.mW());
 		}
 
 		private void deckSelectChanged(DeckComponent selected)
 		{
 			bool value = selected != null;
-			this.dialogAnimator.SetBool(Constants.mu(), value);
+			this.dialogAnimator.SetBool(Constants.mV(), value);
 			this.updatePlayButton(selected);
 		}
 
@@ -90,10 +90,10 @@ namespace cardinal.src.deck.selection
 			this.playButton.interactable = (this.haveQueueAvailableToJoin && deck != null && flag && this.provider.get_Data() != null && !this.provider.get_Data().GetOne<global::c.r>().A);
 			if (deck == null)
 			{
-				this.playButtonTooltip.set_TooltipString(global::L.LT(Constants.mW(), new object[0]));
+				this.playButtonTooltip.set_TooltipString(global::L.LT(Constants.mw(), new object[0]));
 				return;
 			}
-			this.playButtonTooltip.set_TooltipString((!flag) ? global::L.LT(Constants.mw(), new object[0]) : string.Empty);
+			this.playButtonTooltip.set_TooltipString((!flag) ? global::L.LT(Constants.mX(), new object[0]) : string.Empty);
 		}
 
 		private void setVersusAvailableFromBulwarking()
@@ -108,13 +108,13 @@ namespace cardinal.src.deck.selection
 
 		public void Event_SetDifficulty(int difficulty)
 		{
-			this.dialogAnimator.SetInteger(Constants.mX(), difficulty);
+			this.dialogAnimator.SetInteger(Constants.mx(), difficulty);
 			this.provider.get_Data().GetOne<global::d.t>().set_Selected((AIDifficulties)difficulty);
 		}
 
 		public void Event_SetIsRanked(bool isRanked)
 		{
-			this.dialogAnimator.SetBool(Constants.mx(), isRanked);
+			this.dialogAnimator.SetBool(Constants.mY(), isRanked);
 			this.provider.get_Data().GetOne<global::d.T>().set_IsRanked(isRanked);
 		}
 
@@ -162,7 +162,7 @@ namespace cardinal.src.deck.selection
 
 		private void setIsVersusUnavailable()
 		{
-			this.dialogAnimator.SetBool(Constants.mY(), !this.haveQueueAvailableToJoin);
+			this.dialogAnimator.SetBool(Constants.my(), !this.haveQueueAvailableToJoin);
 		}
 
 		private void setCanvasGroupsForSelectableItems(bool status)

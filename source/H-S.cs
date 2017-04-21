@@ -6,7 +6,7 @@ using dwd.core.account;
 using dwd.core.match.messages;
 using h;
 using hydra.match.messages;
-using PrivateImplementationDetails_CB51A9AC;
+using PrivateImplementationDetails;
 using UnityEngine;
 
 namespace H
@@ -124,7 +124,7 @@ namespace H
 					bool flag = false;
 					foreach (KeyValuePair<AccountID, string> keyValuePair in this.get_GameEndedMessage().LoserMap)
 					{
-						if (keyValuePair.Value == Constants.Xo())
+						if (keyValuePair.Value == Constants.XQ())
 						{
 							flag = true;
 						}
@@ -151,7 +151,7 @@ namespace H
 				}
 				else
 				{
-					Debug.LogError(Constants.XP());
+					Debug.LogError(Constants.Xq());
 				}
 			}
 		}

@@ -14,7 +14,7 @@ using dwd.core.rendererManagement.configData;
 using e;
 using hydra.match;
 using J;
-using PrivateImplementationDetails_CB51A9AC;
+using PrivateImplementationDetails;
 using UnityEngine;
 
 public class CardPathsAnimation : MonoBehaviour, IRenderRequester, IEnumerator, IApplicationQuitHandler
@@ -54,7 +54,7 @@ public class CardPathsAnimation : MonoBehaviour, IRenderRequester, IEnumerator, 
 	{
 		if (this.initialized)
 		{
-			throw new InvalidOperationException(Constants.Xt());
+			throw new InvalidOperationException(Constants.XV());
 		}
 		this.layer = new MatchCardLayer?(layer);
 		this.set_Completed(false);
@@ -76,14 +76,14 @@ public class CardPathsAnimation : MonoBehaviour, IRenderRequester, IEnumerator, 
 		}
 		if (curves.Length < 1)
 		{
-			throw new ArgumentException(Constants.XU());
+			throw new ArgumentException(Constants.Xv());
 		}
 		foreach (DataComposition dataComposition in animatingCards)
 		{
 			if (!initial.ContainsKey(dataComposition))
 			{
 				EntityComponent one = dataComposition.GetOne<EntityComponent>();
-				throw new ArgumentException(string.Format(Constants.Xu(), one.GetOne<NameData>().get_Name(), one.get_Parent().GetOne<NameData>().get_Name()));
+				throw new ArgumentException(string.Format(Constants.XW(), one.GetOne<NameData>().get_Name(), one.get_Parent().GetOne<NameData>().get_Name()));
 			}
 		}
 		this.animatingCards = new List<DataComposition>(animatingCards);
@@ -119,11 +119,11 @@ public class CardPathsAnimation : MonoBehaviour, IRenderRequester, IEnumerator, 
 	{
 		if (!this.initialized)
 		{
-			throw new InvalidOperationException(Constants.uP());
+			throw new InvalidOperationException(Constants.uq());
 		}
 		if (!float.IsNaN(this.startTime))
 		{
-			throw new InvalidOperationException(Constants.XV());
+			throw new InvalidOperationException(Constants.Xw());
 		}
 		this.startTime = Time.time;
 	}

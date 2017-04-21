@@ -16,7 +16,7 @@ using G;
 using g;
 using hydra.deckbuilder.commands;
 using hydra.deckeditor.commands;
-using PrivateImplementationDetails_CB51A9AC;
+using PrivateImplementationDetails;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -143,7 +143,7 @@ namespace cardinal.src.deckEditor
 			if (deckToDelete != null && deckToDelete.GetOne<global::G.V>().get_AllowDelete())
 			{
 				result = true;
-				Dictionary<string, ArchetypeID[]> piles = this.get_model().saveData.A.AsSerializableDeck().Piles;
+				Dictionary<string, ArchetypeID[]> piles = this.get_model().A.A.AsSerializableDeck().Piles;
 				foreach (KeyValuePair<string, ArchetypeID[]> keyValuePair in piles)
 				{
 					if (keyValuePair.Key != Constants.FE() && keyValuePair.Value.Length > 0)
@@ -160,7 +160,7 @@ namespace cardinal.src.deckEditor
 		{
 			if (this.get_model().get_Composition().Has<global::f.U>())
 			{
-				this.tooltip.set_TooltipString(global::L.LT(Constants.Pw(), new object[0]));
+				this.tooltip.set_TooltipString(global::L.LT(Constants.PX(), new object[0]));
 			}
 			this.Hint.SetActive(this.get_model().get_HintEnabled());
 		}
@@ -190,7 +190,7 @@ namespace cardinal.src.deckEditor
 			}
 			else
 			{
-				Debug.LogError(Constants.PX());
+				Debug.LogError(Constants.Px());
 			}
 			yield break;
 		}
