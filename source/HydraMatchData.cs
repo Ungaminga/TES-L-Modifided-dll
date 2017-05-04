@@ -234,27 +234,44 @@ public class HydraMatchData : DataProvider
 		this.set_DataInitialized(true);
 		if (this.get_Entities().Playmat.GetOne<global::H.r>().get_Phase() == Phases.StartGame)
 		{
-			string options = "";
-			foreach (KeyValuePair<string, string> itr in msg.GameOptions)
+			string text = "";
+			foreach (KeyValuePair<string, string> keyValuePair in msg.GameOptions)
 			{
-				options = string.Concat(new string[]
+				text = string.Concat(new string[]
 				{
-					options,
+					text,
 					"[",
-					itr.Key,
+					keyValuePair.Key,
 					"] = ",
-					itr.Value,
+					keyValuePair.Value,
 					"; "
 				});
 			}
+			string text2 = "";
+			foreach (Colors colors in this.get_Entities().opponent.get_Player().GetAttribute<Colors[]>(global::f.W.Colors).get_Value())
+			{
+				if (text2 == "")
+				{
+					text2 = colors.ToString();
+				}
+				else
+				{
+					text2 = text2 + ", " + colors.ToString();
+				}
+			}
+			AccountID activePlayer = this.get_Entities().Playmat.GetAttribute<AccountID>(global::f.W.activePlayer).get_Value();
 			File.AppendAllText("sent.txt", string.Concat(new string[]
 			{
-				"=== Started Match, player = ",
+				"=== Started Match; player = ",
 				this.get_Entities().player.get_Player().GetOne<NameData>().get_Name(),
-				", opponent = ",
+				"; opponent = ",
 				this.get_Entities().opponent.get_Player().GetOne<NameData>().get_Name(),
-				", options = ",
-				options,
+				"; opponent_deck = ",
+				text2,
+				"; first player = ",
+				(activePlayer == this.get_Player1AccountID()) ? "you" : "opponent",
+				"; options = ",
+				text,
 				" ===\n"
 			}));
 		}

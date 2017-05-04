@@ -34,7 +34,7 @@ namespace H
 			File.AppendAllText("sent.txt", string.Concat(new object[]
 			{
 				"=== Ended Match, ",
-				player_lost ? " you lost." : " opponent lost.",
+				player_lost ? "you lost." : "opponent lost.",
 				"===\n"
 			}));
 			base.markDirty();
