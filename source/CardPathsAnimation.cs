@@ -11,9 +11,9 @@ using dwd.core.data.composition;
 using dwd.core.match;
 using dwd.core.rendererManagement;
 using dwd.core.rendererManagement.configData;
-using e;
+using F;
 using hydra.match;
-using J;
+using j;
 using PrivateImplementationDetails;
 using UnityEngine;
 
@@ -22,13 +22,13 @@ public class CardPathsAnimation : MonoBehaviour, IRenderRequester, IEnumerator, 
 	[CompilerGenerated]
 	public bool get_Completed()
 	{
-		return this.Completed;
+		return this.Compiled;
 	}
 
 	[CompilerGenerated]
 	private void set_Completed(bool value)
 	{
-		this.Completed = value;
+		this.Compiled = value;
 	}
 
 	protected virtual void OnDestroy()
@@ -54,7 +54,7 @@ public class CardPathsAnimation : MonoBehaviour, IRenderRequester, IEnumerator, 
 	{
 		if (this.initialized)
 		{
-			throw new InvalidOperationException(Constants.XV());
+			throw new InvalidOperationException(Constants.yi());
 		}
 		this.layer = new MatchCardLayer?(layer);
 		this.set_Completed(false);
@@ -76,14 +76,14 @@ public class CardPathsAnimation : MonoBehaviour, IRenderRequester, IEnumerator, 
 		}
 		if (curves.Length < 1)
 		{
-			throw new ArgumentException(Constants.Xv());
+			throw new ArgumentException(Constants.yJ());
 		}
 		foreach (DataComposition dataComposition in animatingCards)
 		{
 			if (!initial.ContainsKey(dataComposition))
 			{
 				EntityComponent one = dataComposition.GetOne<EntityComponent>();
-				throw new ArgumentException(string.Format(Constants.XW(), one.GetOne<NameData>().get_Name(), one.get_Parent().GetOne<NameData>().get_Name()));
+				throw new ArgumentException(string.Format(Constants.yj(), one.GetOne<NameData>().get_Name(), one.get_Parent().GetOne<NameData>().get_Name()));
 			}
 		}
 		this.animatingCards = new List<DataComposition>(animatingCards);
@@ -119,11 +119,11 @@ public class CardPathsAnimation : MonoBehaviour, IRenderRequester, IEnumerator, 
 	{
 		if (!this.initialized)
 		{
-			throw new InvalidOperationException(Constants.uq());
+			throw new InvalidOperationException(Constants.Wc());
 		}
 		if (!float.IsNaN(this.startTime))
 		{
-			throw new InvalidOperationException(Constants.Xw());
+			throw new InvalidOperationException(Constants.yK());
 		}
 		this.startTime = Time.time;
 	}
@@ -162,10 +162,10 @@ public class CardPathsAnimation : MonoBehaviour, IRenderRequester, IEnumerator, 
 				visibilityConfiguration.Show = this.DoShow;
 				if (this.animatingCards.Contains(key))
 				{
-					visibilityConfiguration.GetOne<global::J.l>().A = true;
-					x.DisplayMode displayMode = this.initialPositions[key].GetOne<x>().displayMode;
-					visibilityConfiguration.GetOne<x>().displayMode = displayMode;
-					visibilityConfiguration.GetOne<W>().A = false;
+					visibilityConfiguration.GetOne<j.f>().A = true;
+					Q.DisplayMode display = this.initialPositions[key].GetOne<Q>().display;
+					visibilityConfiguration.GetOne<Q>().display = display;
+					visibilityConfiguration.GetOne<o>().A = false;
 				}
 			}
 			if (num >= this.duration)
@@ -202,12 +202,12 @@ public class CardPathsAnimation : MonoBehaviour, IRenderRequester, IEnumerator, 
 					}
 					else
 					{
-						y one = keyValuePair.Value.GetOne<y>();
+						R one = keyValuePair.Value.GetOne<R>();
 						animationClip = ((one == null) ? this.curves[this.curves.Length - 1] : one);
 					}
 					if (animationClip != null)
 					{
-						PathAnimator component = new GameObject(Constants.eC(), new Type[]
+						PathAnimator component = new GameObject(Constants.er(), new Type[]
 						{
 							typeof(Animation),
 							typeof(dwd.core.animation.paths.Path),
@@ -264,7 +264,7 @@ public class CardPathsAnimation : MonoBehaviour, IRenderRequester, IEnumerator, 
 	private float duration;
 
 	[CompilerGenerated]
-	private bool Completed;
+	private bool Compiled;
 
 	private float startTime = float.NaN;
 

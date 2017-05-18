@@ -3,11 +3,11 @@ using System.IO;
 using dwd.core;
 using hydra.enums;
 
-namespace H
+namespace h
 {
-	public class s : VersionedModel
+	public class M : VersionedModel
 	{
-		public s(r playmat)
+		public M(L playmat)
 		{
 			this.phases = playmat;
 		}
@@ -79,7 +79,7 @@ namespace H
 			return base.get_Version();
 		}
 
-		private readonly r phases;
+		private readonly L phases;
 
 		private HydraMatchData matchData;
 

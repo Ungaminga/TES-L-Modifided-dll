@@ -4,14 +4,14 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using dwd.core.account;
 using dwd.core.match.messages;
-using h;
 using hydra.match.messages;
+using I;
 using PrivateImplementationDetails;
 using UnityEngine;
 
-namespace H
+namespace h
 {
-	public class S : VersionedModel
+	public class l : VersionedModel
 	{
 		public bool get_GameEnded()
 		{
@@ -59,13 +59,13 @@ namespace H
 		}
 
 		[CompilerGenerated]
-		public s get_Rewards()
+		public M get_Rewards()
 		{
 			return this.Rewards;
 		}
 
 		[CompilerGenerated]
-		private void set_Rewards(s value)
+		private void set_Rewards(M value)
 		{
 			this.Rewards = value;
 		}
@@ -82,7 +82,7 @@ namespace H
 				this.rewards_version = this.get_Version();
 				if (this.get_Ready())
 				{
-					this.set_Rewards(new s(this.get_GameCompletedNotification()));
+					this.set_Rewards(new M(this.get_GameCompletedNotification()));
 				}
 				else
 				{
@@ -91,7 +91,7 @@ namespace H
 			}
 		}
 
-		public S.Outcomes? get_Outcome()
+		public l.Outcomes? get_Outcome()
 		{
 			this.updateOutcome();
 			return this.outcome;
@@ -124,7 +124,7 @@ namespace H
 					bool flag = false;
 					foreach (KeyValuePair<AccountID, string> keyValuePair in this.get_GameEndedMessage().LoserMap)
 					{
-						if (keyValuePair.Value == Constants.XQ())
+						if (keyValuePair.Value == Constants.yD())
 						{
 							flag = true;
 						}
@@ -132,26 +132,26 @@ namespace H
 					}
 					if (flag)
 					{
-						this.outcome = new S.Outcomes?(S.Outcomes.CRASH);
+						this.outcome = new l.Outcomes?(l.Outcomes.CRASH);
 					}
 					else
 					{
-						this.outcome = new S.Outcomes?(S.Outcomes.Draw);
+						this.outcome = new l.Outcomes?(l.Outcomes.Draw);
 					}
 				}
 				else if (this.get_GameEndedMessage().LoserMap.TryGetValue(this.player, out this.lossReason))
 				{
 					this.losers.Add(this.player);
-					this.outcome = new S.Outcomes?(S.Outcomes.Loss);
+					this.outcome = new l.Outcomes?(l.Outcomes.Loss);
 				}
 				else if (this.get_GameEndedMessage().LoserMap.TryGetValue(this.opponent, out this.lossReason))
 				{
 					this.losers.Add(this.opponent);
-					this.outcome = new S.Outcomes?(S.Outcomes.Win);
+					this.outcome = new l.Outcomes?(l.Outcomes.Win);
 				}
 				else
 				{
-					Debug.LogError(Constants.Xq());
+					Debug.LogError(Constants.yd());
 				}
 			}
 		}
@@ -165,11 +165,11 @@ namespace H
 		private AccountID opponent;
 
 		[CompilerGenerated]
-		private s Rewards;
+		private M Rewards;
 
 		private ulong rewards_version;
 
-		private S.Outcomes? outcome;
+		private l.Outcomes? outcome;
 
 		private string lossReason;
 
