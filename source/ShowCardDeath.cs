@@ -21,7 +21,7 @@ namespace cardinal.src.match.commands.misc
 			this.postDeathCommand = postDeathCommand;
 			if (effectPrefabName == "millDeath")
 			{
-				string sent = string.Concat(new string[]
+				string contents = string.Concat(new string[]
 				{
 					isPlayerOne ? "player" : "opponent",
 					" played card_destroyed ",
@@ -30,15 +30,19 @@ namespace cardinal.src.match.commands.misc
 					card.GetOne<NameData>().get_Name(),
 					"\n"
 				});
-				File.AppendAllText("sent.txt", sent);
+				File.AppendAllText("sent.txt", contents);
+			}
+			if (effectPrefabName == "millDeath2")
+			{
+				this.effectPrefabName = "millDeath";
 			}
 		}
 
 		protected override IEnumerator execute()
 		{
 			MatchEffectConfig deathPrefab = MatchEffects.GetConfig(this.effectPrefabName);
-			float deathDelay = AttackDelays.GetDelay(AttackDelays.DelayType.UnitDeath);
-			yield return new WaitForSeconds(deathDelay);
+			float delay = AttackDelays.GetDelay(AttackDelays.DelayType.UnitDeath);
+			yield return new WaitForSeconds(delay);
 			MatchEffectsArea death = new GameObject(Constants.rr()).AddComponent<DeathEffectArea>();
 			death.Init(deathPrefab, this.card);
 			death.Play(null);
