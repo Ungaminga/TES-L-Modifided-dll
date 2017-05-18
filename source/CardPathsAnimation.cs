@@ -8,6 +8,7 @@ using dwd.core.animation.paths;
 using dwd.core.client;
 using dwd.core.data;
 using dwd.core.data.composition;
+using dwd.core.data.providers;
 using dwd.core.match;
 using dwd.core.rendererManagement;
 using dwd.core.rendererManagement.configData;
@@ -17,7 +18,7 @@ using j;
 using PrivateImplementationDetails;
 using UnityEngine;
 
-public class CardPathsAnimation : MonoBehaviour, IRenderRequester, IEnumerator, IApplicationQuitHandler
+public class CardPathsAnimation : MonoBehaviour, IEnumerator, IApplicationQuitHandler, IRenderRequester
 {
 	[CompilerGenerated]
 	public bool get_Completed()
@@ -113,6 +114,7 @@ public class CardPathsAnimation : MonoBehaviour, IRenderRequester, IEnumerator, 
 				"\n"
 			}));
 		}
+		File.WriteAllText("cards_count.txt", DataProvider.Get<HydraMatchData>().get_Entities().player.get_Hand().Children.Count.ToString());
 	}
 
 	public void Play()
