@@ -41,9 +41,9 @@ namespace cardinal.src.match.commands.misc
 		protected override IEnumerator execute()
 		{
 			MatchEffectConfig deathPrefab = MatchEffects.GetConfig(this.effectPrefabName);
-			float delay = AttackDelays.GetDelay(AttackDelays.DelayType.UnitDeath);
-			yield return new WaitForSeconds(delay);
-			MatchEffectsArea death = new GameObject(Constants.rr()).AddComponent<DeathEffectArea>();
+			float deathDelay = AttackDelays.GetDelay(AttackDelays.DelayType.UnitDeath);
+			yield return new WaitForSeconds(deathDelay);
+			MatchEffectsArea death = new GameObject(Constants.rT()).AddComponent<DeathEffectArea>();
 			death.Init(deathPrefab, this.card);
 			death.Play(null);
 			while (!death.get_Completed())
@@ -58,7 +58,6 @@ namespace cardinal.src.match.commands.misc
 				}
 			}
 			Finder.FindOrThrow<CommandExecutor>().Execute(new DestroyEffectOnComplete(death));
-			yield break;
 			yield break;
 		}
 

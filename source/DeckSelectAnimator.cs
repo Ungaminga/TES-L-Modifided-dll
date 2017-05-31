@@ -41,15 +41,15 @@ namespace cardinal.src.deck.selection
 			this.setVersusAvailableFromBulwarking();
 			this.setIsVersusUnavailable();
 			int value;
-			switch (data.GetOne<global::B.X>().A)
+			switch (data.GetOne<global::B.Z>().A)
 			{
 			case DeckSelectMode.SoloBattle:
 				value = 1;
-				this.Event_SetDifficulty((int)data.GetOne<global::E.m>().get_Selected());
+				this.Event_SetDifficulty((int)data.GetOne<global::E.o>().get_Selected());
 				goto IL_8F;
 			case DeckSelectMode.VersusBattle:
 				value = 2;
-				this.Event_SetIsRanked(data.GetOne<global::E.M>().get_IsRanked());
+				this.Event_SetIsRanked(data.GetOne<global::E.O>().get_IsRanked());
 				goto IL_8F;
 			case DeckSelectMode.FriendChallenge:
 				value = 3;
@@ -60,24 +60,24 @@ namespace cardinal.src.deck.selection
 			}
 			value = 0;
 			IL_8F:
-			DeckComponent selected = data.GetOne<global::E.N>().get_Selected();
-			this.dialogAnimator.SetInteger(Constants.OJ(), value);
+			DeckComponent selected = data.GetOne<global::E.P>().get_Selected();
+			this.dialogAnimator.SetInteger(Constants.Ok(), value);
 			bool value2 = selected != null;
-			this.dialogAnimator.SetBool(Constants.Oj(), value2);
+			this.dialogAnimator.SetBool(Constants.OL(), value2);
 			this.dialogAnimator.enabled = true;
-			this.dialogAnimator.SetTrigger(Constants.OK());
+			this.dialogAnimator.SetTrigger(Constants.Ol());
 			this.updatePlayButton(selected);
 		}
 
 		private void close()
 		{
-			this.dialogAnimator.SetTrigger(Constants.Ok());
+			this.dialogAnimator.SetTrigger(Constants.OM());
 		}
 
 		private void deckSelectChanged(DeckComponent selected)
 		{
 			bool value = selected != null;
-			this.dialogAnimator.SetBool(Constants.Oj(), value);
+			this.dialogAnimator.SetBool(Constants.OL(), value);
 			this.updatePlayButton(selected);
 		}
 
@@ -87,51 +87,51 @@ namespace cardinal.src.deck.selection
 			bool flag = false;
 			if (deck != null)
 			{
-				flag = deck.GetOne<global::g.P>().IsValidFor(DeckFormat.Standard);
+				flag = deck.GetOne<global::g.R>().IsValidFor(DeckFormat.Standard);
 				File.WriteAllText("deck_selection.txt", deck.get_Name());
 			}
-			this.playButton.interactable = (this.haveQueueAvailableToJoin && deck != null && flag && this.provider.get_Data() != null && !this.provider.get_Data().GetOne<global::D.k>().A);
+			this.playButton.interactable = (this.haveQueueAvailableToJoin && deck != null && flag && this.provider.get_Data() != null && !this.provider.get_Data().GetOne<global::D.m>().A);
 			if (deck == null)
 			{
-				this.playButtonTooltip.set_TooltipString(global::L.LT(Constants.OL(), new object[0]));
+				this.playButtonTooltip.set_TooltipString(global::L.LT(Constants.Om(), new object[0]));
 				return;
 			}
-			this.playButtonTooltip.set_TooltipString((!flag) ? global::L.LT(Constants.Ol(), new object[0]) : string.Empty);
+			this.playButtonTooltip.set_TooltipString((!flag) ? global::L.LT(Constants.ON(), new object[0]) : string.Empty);
 		}
 
 		private void setVersusAvailableFromBulwarking()
 		{
 			this.haveQueueAvailableToJoin = true;
-			global::E.M m = null;
-			if (this.provider.get_Data().TryGetOne<global::E.M>(out m))
+			global::E.O o = null;
+			if (this.provider.get_Data().TryGetOne<global::E.O>(out o))
 			{
-				this.haveQueueAvailableToJoin = (m.get_AllowCasual() || m.get_AllowRanked());
+				this.haveQueueAvailableToJoin = (o.get_AllowCasual() || o.get_AllowRanked());
 			}
 		}
 
 		public void Event_SetDifficulty(int difficulty)
 		{
-			this.dialogAnimator.SetInteger(Constants.OM(), difficulty);
-			this.provider.get_Data().GetOne<global::E.m>().set_Selected((AIDifficulties)difficulty);
+			this.dialogAnimator.SetInteger(Constants.On(), difficulty);
+			this.provider.get_Data().GetOne<global::E.o>().set_Selected((AIDifficulties)difficulty);
 		}
 
 		public void Event_SetIsRanked(bool isRanked)
 		{
-			this.dialogAnimator.SetBool(Constants.Om(), isRanked);
-			this.provider.get_Data().GetOne<global::E.M>().set_IsRanked(isRanked);
+			this.dialogAnimator.SetBool(Constants.OO(), isRanked);
+			this.provider.get_Data().GetOne<global::E.O>().set_IsRanked(isRanked);
 		}
 
 		public void Event_ConfirmClicked()
 		{
 			this.setCanvasGroupsForSelectableItems(false);
-			this.provider.get_Data().GetOne<global::E.N>().RequestPlay();
+			this.provider.get_Data().GetOne<global::E.P>().RequestPlay();
 			this.dialog.Close();
 		}
 
 		public void Event_CloseClicked()
 		{
 			this.setCanvasGroupsForSelectableItems(false);
-			global::E.N one = this.provider.get_Data().GetOne<global::E.N>();
+			global::E.P one = this.provider.get_Data().GetOne<global::E.P>();
 			one.set_Selected(null);
 			this.setLandingModelModeIfNeeded();
 			this.dialog.Close();
@@ -150,14 +150,14 @@ namespace cardinal.src.deck.selection
 		public void Event_EditDeckClicked()
 		{
 			this.setCanvasGroupsForSelectableItems(false);
-			this.provider.get_Data().GetOne<global::E.N>().RequestEdit();
+			this.provider.get_Data().GetOne<global::E.P>().RequestEdit();
 			this.dialog.Close();
 		}
 
 		public void Event_NewDeckClicked()
 		{
 			this.setCanvasGroupsForSelectableItems(false);
-			global::E.N one = this.provider.get_Data().GetOne<global::E.N>();
+			global::E.P one = this.provider.get_Data().GetOne<global::E.P>();
 			one.set_Selected(null);
 			one.RequestEdit();
 			this.dialog.Close();
@@ -165,7 +165,7 @@ namespace cardinal.src.deck.selection
 
 		private void setIsVersusUnavailable()
 		{
-			this.dialogAnimator.SetBool(Constants.ON(), !this.haveQueueAvailableToJoin);
+			this.dialogAnimator.SetBool(Constants.Oo(), !this.haveQueueAvailableToJoin);
 		}
 
 		private void setCanvasGroupsForSelectableItems(bool status)

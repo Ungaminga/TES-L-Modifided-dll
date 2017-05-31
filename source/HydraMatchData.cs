@@ -25,6 +25,7 @@ using h;
 using hydra.enums;
 using i;
 using I;
+using J;
 using PrivateImplementationDetails;
 using UnityEngine;
 using UnityEngine.Events;
@@ -93,61 +94,61 @@ public class HydraMatchData : DataProvider
 	}
 
 	[CompilerGenerated]
-	public global::b.r get_ObserverModel()
+	public global::b.t get_ObserverModel()
 	{
 		return this.<ObserverModel>k__BackingField;
 	}
 
 	[CompilerGenerated]
-	private void set_ObserverModel(global::b.r value)
+	private void set_ObserverModel(global::b.t value)
 	{
 		this.<ObserverModel>k__BackingField = value;
 	}
 
 	[CompilerGenerated]
-	public global::h.k get_Entities()
+	public global::h.m get_Entities()
 	{
 		return this.<Entities>k__BackingField;
 	}
 
 	[CompilerGenerated]
-	private void set_Entities(global::h.k value)
+	private void set_Entities(global::h.m value)
 	{
 		this.<Entities>k__BackingField = value;
 	}
 
 	[CompilerGenerated]
-	public global::h.K get_Options()
+	public global::h.M get_Options()
 	{
 		return this.<Options>k__BackingField;
 	}
 
 	[CompilerGenerated]
-	private void set_Options(global::h.K value)
+	private void set_Options(global::h.M value)
 	{
 		this.<Options>k__BackingField = value;
 	}
 
 	[CompilerGenerated]
-	public global::i.t get_Waiting()
+	public global::i.v get_Waiting()
 	{
 		return this.<Waiting>k__BackingField;
 	}
 
 	[CompilerGenerated]
-	private void set_Waiting(global::i.t value)
+	private void set_Waiting(global::i.v value)
 	{
 		this.<Waiting>k__BackingField = value;
 	}
 
 	[CompilerGenerated]
-	public global::h.M get_Mulligan()
+	public global::h.O get_Mulligan()
 	{
 		return this.<Mulligan>k__BackingField;
 	}
 
 	[CompilerGenerated]
-	private void set_Mulligan(global::h.M value)
+	private void set_Mulligan(global::h.O value)
 	{
 		this.<Mulligan>k__BackingField = value;
 	}
@@ -226,27 +227,27 @@ public class HydraMatchData : DataProvider
 		this.set_GameID(msg.A);
 		if (this.get_SelfAccountID() == null)
 		{
-			throw new InvalidOperationException(Constants.YV());
+			throw new InvalidOperationException(Constants.Yx());
 		}
-		this.set_Options(new global::h.K(msg.GameOptions));
+		this.set_Options(new global::h.M(msg.GameOptions));
 		this.CardAnimationsInstantiator.Instantiate();
 		this.MatchEffectsInstantiator.Instantiate();
-		AccountID[] array = global::i.F.SortPlayerIDs(msg.PlayerAccounts, this.get_SelfAccountID());
+		AccountID[] array = global::i.H.SortPlayerIDs(msg.PlayerAccounts, this.get_SelfAccountID());
 		this.set_Player1AccountID(array[0]);
 		this.set_Player2AccountID(array[1]);
 		this.MatchEnd.AssignAccountIDs(this.get_Player1AccountID(), this.get_Player2AccountID());
-		this.set_Entities(global::h.k.Create(this.get_Player1AccountID(), this.get_Player2AccountID(), msg.Entities, true, global::I.H.Find()));
+		this.set_Entities(global::h.m.Create(this.get_Player1AccountID(), this.get_Player2AccountID(), msg.Entities, true, global::I.J.Find()));
 		base.GetComponent<EntitiesProvider>().Initialize(this.get_Entities());
-		this.set_Waiting(new global::i.t(new EntityID[]
+		this.set_Waiting(new global::i.v(new EntityID[]
 		{
 			this.get_Entities().player.get_Player().get_EntityID()
 		}));
-		this.get_Entities().opponent.get_Player().Add<global::i.Y>(new global::i.Y(this.get_Waiting()));
+		this.get_Entities().opponent.get_Player().Add<global::J.A>(new global::J.A(this.get_Waiting()));
 		Finder.FindOrThrow<PlaymatLaneScrolls>().Initialize(this.get_Entities().get_PlaymatLane1(), this.get_Entities().get_PlaymatLane2());
 		this.checkForPresentedClones();
-		this.set_ObserverModel(new global::b.r(this.get_Player1AccountID(), this.get_Player2AccountID()));
+		this.set_ObserverModel(new global::b.t(this.get_Player1AccountID(), this.get_Player2AccountID()));
 		this.set_DataInitialized(true);
-		if (this.get_Entities().Playmat.GetOne<global::h.L>().get_Phase() == Phases.StartGame)
+		if (this.get_Entities().Playmat.GetOne<global::h.N>().get_Phase() == Phases.StartGame)
 		{
 			string text = "";
 			foreach (KeyValuePair<string, string> keyValuePair in msg.GameOptions)
@@ -262,7 +263,7 @@ public class HydraMatchData : DataProvider
 				});
 			}
 			string text2 = "";
-			foreach (Colors colors in this.get_Entities().opponent.get_Player().GetAttribute<Colors[]>(global::G.P.Colors).get_Value())
+			foreach (Colors colors in this.get_Entities().opponent.get_Player().GetAttribute<Colors[]>(global::G.R.Colors).get_Value())
 			{
 				if (text2 == "")
 				{
@@ -273,7 +274,7 @@ public class HydraMatchData : DataProvider
 					text2 = text2 + ", " + colors.ToString();
 				}
 			}
-			AccountID activePlayer = this.get_Entities().Playmat.GetAttribute<AccountID>(global::G.P.activePlayer).get_Value();
+			AccountID activePlayer = this.get_Entities().Playmat.GetAttribute<AccountID>(global::G.R.activePlayer).get_Value();
 			File.AppendAllText("sent.txt", string.Concat(new string[]
 			{
 				"=== Started Match; player = ",
@@ -305,7 +306,7 @@ public class HydraMatchData : DataProvider
 			for (int j = 0; j < array[i].Children.Count; j++)
 			{
 				EntityComponent entityComponent = array[i].Children[j];
-				if (entityComponent.GetAttribute<bool?>(global::G.P.U).get_Value() == true)
+				if (entityComponent.GetAttribute<bool?>(global::G.R.U).get_Value() == true)
 				{
 					Finder.FindOrThrow<CommandExecutor>().Execute(new CreatePresentedClone(entityComponent, new MutableAttributes(entityComponent), false));
 					break;
@@ -318,9 +319,9 @@ public class HydraMatchData : DataProvider
 	{
 		if (!this.get_DataInitialized())
 		{
-			throw new InvalidOperationException(Constants.Yv());
+			throw new InvalidOperationException(Constants.YY());
 		}
-		this.set_Mulligan(new global::h.M(this.get_Entities().Playmat.GetOne<global::h.L>()));
+		this.set_Mulligan(new global::h.O(this.get_Entities().Playmat.GetOne<global::h.N>()));
 		this.set_Initialized(true);
 	}
 
@@ -329,16 +330,16 @@ public class HydraMatchData : DataProvider
 		return (this.Player1PresentLeft != null && this.Player1PresentLeft.get_Card() != null) || (this.Player1PresentRight != null && this.Player1PresentRight.get_Card() != null) || (this.Player1MultiPresent != null && this.Player1MultiPresent.get_Card() != null) || (this.Player2PresentLeft != null && this.Player2PresentLeft.get_Card() != null) || (this.Player2PresentRight != null && this.Player2PresentRight.get_Card() != null) || (this.Player2MultiPresent != null && this.Player2MultiPresent.get_Card() != null) || (this.PresentCenter != null && this.PresentCenter.get_Card() != null);
 	}
 
-	public void EnqueueEmote(AccountID player, global::E.o emote)
+	public void EnqueueEmote(AccountID player, global::E.q emote)
 	{
 		if (player == null)
 		{
-			Debug.LogError(Constants.YW() + emote.A);
+			Debug.LogError(Constants.Yy() + emote.A);
 			emote.SignalComplete();
 		}
 		else
 		{
-			this.get_Entities().GetPlayerEntities(player).get_Player().GetOne<global::h.I>().Enqueue(emote);
+			this.get_Entities().GetPlayerEntities(player).get_Player().GetOne<global::h.K>().Enqueue(emote);
 		}
 	}
 
@@ -358,9 +359,9 @@ public class HydraMatchData : DataProvider
 		return this.onDestroyed;
 	}
 
-	public readonly global::i.S AttackEffects = new global::i.S();
+	public readonly global::i.U AttackEffects = new global::i.U();
 
-	public readonly global::h.l MatchEnd = new global::h.l();
+	public readonly global::h.n MatchEnd = new global::h.n();
 
 	[HideInInspector]
 	public CardPresentArea Player1PresentLeft;

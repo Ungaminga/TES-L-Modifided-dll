@@ -24,7 +24,7 @@ using UnityEngine.UI;
 namespace cardinal.src.deckEditor
 {
 	[RequireComponent(typeof(Button))]
-	public class DeckDoneButton : VersionedSubscriber<global::d.O>
+	public class DeckDoneButton : VersionedSubscriber<global::d.Q>
 	{
 		private void Awake()
 		{
@@ -44,7 +44,7 @@ namespace cardinal.src.deckEditor
 
 		protected override void dataChanged()
 		{
-			this.finishData = this.get_data().TryGetOne<global::H.f>();
+			this.finishData = this.get_data().TryGetOne<global::H.h>();
 		}
 
 		protected override void update()
@@ -111,10 +111,10 @@ namespace cardinal.src.deckEditor
 				bool flag = true;
 				if (this.scene.get_Tutorial() != null)
 				{
-					global::H.S s = new global::H.S();
+					global::H.U u = new global::H.U();
 					Coroutine coroutine;
-					this.scene.get_Tutorial().EndorseRequest(s, out coroutine);
-					flag = !s.get_Denied();
+					this.scene.get_Tutorial().EndorseRequest(u, out coroutine);
+					flag = !u.get_Denied();
 				}
 				if (!flag)
 				{
@@ -140,13 +140,13 @@ namespace cardinal.src.deckEditor
 		private bool shouldDeleteInsteadOfSave(DeckComponent deckToDelete)
 		{
 			bool result = false;
-			if (deckToDelete != null && deckToDelete.GetOne<global::g.o>().get_AllowDelete())
+			if (deckToDelete != null && deckToDelete.GetOne<global::g.q>().get_AllowDelete())
 			{
 				result = true;
-				Dictionary<string, ArchetypeID[]> piles = this.get_model().saveData.D.AsSerializableDeck().Piles;
+				Dictionary<string, ArchetypeID[]> piles = this.get_model().A.A.AsSerializableDeck().Piles;
 				foreach (KeyValuePair<string, ArchetypeID[]> keyValuePair in piles)
 				{
-					if (keyValuePair.Key != Constants.Fm() && keyValuePair.Value.Length > 0)
+					if (keyValuePair.Key != Constants.FO() && keyValuePair.Value.Length > 0)
 					{
 						result = false;
 						break;
@@ -158,9 +158,9 @@ namespace cardinal.src.deckEditor
 
 		protected override void dirtyUpdate()
 		{
-			if (this.get_model().get_Composition().Has<global::G.N>())
+			if (this.get_model().get_Composition().Has<global::G.P>())
 			{
-				this.tooltip.set_TooltipString(global::L.LT(Constants.qH(), new object[0]));
+				this.tooltip.set_TooltipString(global::L.LT(Constants.qi(), new object[0]));
 			}
 			this.Hint.SetActive(this.get_model().get_HintEnabled());
 		}
@@ -180,7 +180,7 @@ namespace cardinal.src.deckEditor
 			}
 			if (delete.Success)
 			{
-				this.get_model().GetOne<global::H.J>().set_UnsavedChanges(false);
+				this.get_model().GetOne<global::H.L>().set_UnsavedChanges(false);
 				ExitDeckEditor exit = new ExitDeckEditor();
 				while (exit.MoveNext())
 				{
@@ -190,7 +190,7 @@ namespace cardinal.src.deckEditor
 			}
 			else
 			{
-				Debug.LogError(Constants.qh());
+				Debug.LogError(Constants.qJ());
 			}
 			yield break;
 		}
@@ -202,13 +202,13 @@ namespace cardinal.src.deckEditor
 
 		private CommandExecutor executor;
 
-		private global::D.m dialogPrefab;
+		private global::D.o dialogPrefab;
 
 		private DeckEditScene scene;
 
 		private StringTooltipSource tooltip;
 
-		private global::H.f finishData;
+		private global::H.h finishData;
 
 		private Command command;
 	}

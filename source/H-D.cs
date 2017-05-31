@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.CompilerServices;
-using a;
 using B;
 using d;
 using dwd.core;
@@ -22,86 +21,86 @@ using UnityEngine;
 
 namespace H
 {
-	public class B : global::H.D, global::H.C
+	public class D : global::H.F, global::H.E
 	{
-		public B(Archetypes archetypes, Collection collection, global::g.O constraints, global::g.o permissions, global::H.c validator, Decks decks)
+		public D(Archetypes archetypes, Collection collection, global::g.Q constraints, global::g.q permissions, global::H.e validator, Decks decks)
 		{
 			this.local_collection_avatars = archetypes;
-			global::d.T t = new global::d.T();
-			global::d.W w = new global::d.W(t);
-			this.current_deck = new global::H.d(archetypes, global::H.E.Sources.Deck, false);
-			this.collection = new global::d.v(archetypes, collection, t, w);
-			this.GlobalCollection = new global::J.k(archetypes, true, this.collection, this.current_deck);
-			global::E.J j = new global::E.J(this.current_deck);
-			global::d.P p = new global::d.P(this.current_deck, validator);
-			this.deck_colors = new global::H.m(p, j, validator, 1.5f);
-			global::B.u u = new global::B.u();
-			global::H.N n = new global::H.N();
-			global::H.p p2 = new global::H.p();
-			global::H.O o = new global::H.O(archetypes, Finder.FindOrThrow<CardinalNewArchetypes>());
-			global::H.P p3 = new global::H.P();
-			global::H.l l = new global::H.l(global::J.G.E.Get());
-			global::E.i i = new global::E.i(p2, p3);
-			global::H.f f = new global::H.f(j, this.current_deck, validator);
-			this.deck = new global::g.z(this.current_deck, f);
-			this.deck_editor_saver = new global::H.J(this);
-			this.deck_name = new global::d.r(j, this.deck_editor_saver, permissions == null || permissions.get_AllowRename(), decks);
+			global::d.V v = new global::d.V();
+			global::d.Y y = new global::d.Y(v);
+			this.current_deck = new global::H.f(archetypes, global::H.G.Sources.Deck, false);
+			this.collection = new global::d.x(archetypes, collection, v, y);
+			this.GlobalCollection = new global::J.m(archetypes, true, this.collection, this.current_deck);
+			global::E.L l = new global::E.L(this.current_deck);
+			global::d.R r = new global::d.R(this.current_deck, validator);
+			this.deck_colors = new global::H.o(r, l, validator, 1.5f);
+			global::B.w w = new global::B.w();
+			global::H.P p = new global::H.P();
+			global::H.r r2 = new global::H.r();
+			global::H.Q q = new global::H.Q(archetypes, Finder.FindOrThrow<CardinalNewArchetypes>());
+			global::H.R r3 = new global::H.R();
+			global::H.n n = new global::H.n(global::J.I.E.Get());
+			global::E.k k = new global::E.k(r2, r3);
+			global::H.h h = new global::H.h(l, this.current_deck, validator);
+			this.deck = new global::H.b(this.current_deck, h);
+			this.deck_editor_saver = new global::H.L(this);
+			this.deck_name = new global::d.t(l, this.deck_editor_saver, permissions == null || permissions.get_AllowRename(), decks);
 			SinglesCommerceProvider singlesCommerceProvider = SinglesCommerceProvider.Find();
-			this.Collection = new global::g.x(this.GlobalCollection, true, new global::H.n[]
+			this.Collection = new global::g.z(this.GlobalCollection, true, new global::H.p[]
 			{
 				this.deck_colors,
+				p,
+				r2,
+				q,
+				r3,
 				n,
-				p2,
-				o,
-				p3,
-				l,
-				u
+				w
 			});
-			global::d.n n2 = new global::d.n(this.current_deck);
-			global::d.N n3 = new global::d.N(this.current_deck);
-			global::a.y y = new global::a.y(this.current_deck);
-			global::d.U u2 = new global::d.U(archetypes, collection, j);
-			this.deck_avatars = new global::d.s(u2, this.deck_editor_saver, permissions == null || permissions.get_AllowChangeAvatar());
-			global::B.B b = new global::B.B(this.Collection, this.deck_colors);
+			global::d.p p2 = new global::d.p(this.current_deck);
+			global::d.P p3 = new global::d.P(this.current_deck);
+			global::B.a a = new global::B.a(this.current_deck);
+			global::d.W w2 = new global::d.W(archetypes, collection, l);
+			this.deck_avatars = new global::d.u(w2, this.deck_editor_saver, permissions == null || permissions.get_AllowChangeAvatar());
+			global::B.D d = new global::B.D(this.Collection, this.deck_colors);
 			this.Composition = new DataComposition(new DataComponent[]
 			{
 				this.deck_name,
 				this.deck_editor_saver,
-				new global::H.g(),
-				new global::H.I(DeckEditorModes.Collection),
-				new global::H.K(),
-				new global::H.G(this.deck, true),
-				new global::H.F(this.Collection, global::H.H.ItemState.Card),
+				new global::H.i(),
+				new global::H.K(DeckEditorModes.Collection),
+				new global::H.M(),
+				new global::H.I(this.deck, true),
+				new global::H.H(this.Collection, global::H.J.ItemState.Card),
 				this.deck_colors,
-				n,
-				u,
-				p2,
-				o,
-				p3,
-				t,
-				n2,
-				n3,
-				y,
 				p,
-				j,
-				u2,
-				this.deck_avatars,
-				f,
-				i,
 				w,
-				new global::J.i(),
-				new global::d.R(n2, 5),
-				new global::d.p(permissions == null || permissions.get_AllowDelete()),
-				new global::d.O(this.deck_editor_saver),
-				new global::a.Z(this.collection),
-				b
+				r2,
+				q,
+				r3,
+				v,
+				p2,
+				p3,
+				a,
+				r,
+				l,
+				w2,
+				this.deck_avatars,
+				h,
+				k,
+				y,
+				new global::J.k(),
+				new global::d.T(p2, 5),
+				new global::d.r(permissions == null || permissions.get_AllowDelete()),
+				new global::d.Q(this.deck_editor_saver),
+				new global::B.B(this.collection),
+				d
 			});
 			if (permissions != null)
 			{
 				this.Composition.Add<DataComponent>(permissions.Clone());
 			}
 			this.deckvalidator = validator;
-			this.set_DeckReprintCounts(new global::d.S(archetypes, this.current_deck));
+			this.set_DeckReprintCounts(new global::d.U(archetypes, this.current_deck));
 		}
 
 		public int get_TotalDeckCount()
@@ -109,7 +108,7 @@ namespace H
 			return this.current_deck.get_TotalCardCount();
 		}
 
-		public global::g.z get_Deck()
+		public global::H.b get_Deck()
 		{
 			return this.deck;
 		}
@@ -119,19 +118,19 @@ namespace H
 			return this.current_deck.get_Counts();
 		}
 
-		public global::g.x get_Collection()
+		public global::g.z get_Collection()
 		{
 			return this.Collection;
 		}
 
 		[CompilerGenerated]
-		public global::d.S get_DeckReprintCounts()
+		public global::d.U get_DeckReprintCounts()
 		{
 			return this.DeckReprintCounts;
 		}
 
 		[CompilerGenerated]
-		private void set_DeckReprintCounts(global::d.S value)
+		private void set_DeckReprintCounts(global::d.U value)
 		{
 			this.DeckReprintCounts = value;
 		}
@@ -188,20 +187,20 @@ namespace H
 						}
 						else
 						{
-							Debug.LogError(Constants.Fl() + keyValuePair3.Key);
+							Debug.LogError(Constants.FN() + keyValuePair3.Key);
 						}
 					}
 				}
-				foreach (global::g.w w in this.current_deck.get_Stacks())
+				foreach (global::g.y y in this.current_deck.get_Stacks())
 				{
-					w.GetOne<global::g.b>().MarkAsRead();
+					y.GetOne<global::g.d>().MarkAsRead();
 				}
 				ArchetypeComponent avatar = deck.GetAvatar(this.local_collection_avatars);
 				this.deck_avatars.SetAvatar(avatar);
 			}
 			if (deck != null)
 			{
-				this.deck_name.SetName(deck.GetOne<DeckNameData>().get_Name(), deck.GetOne<global::E.k>().get_HasAutoName());
+				this.deck_name.SetName(deck.GetOne<DeckNameData>().get_Name(), deck.GetOne<global::E.m>().get_HasAutoName());
 			}
 			this.deck_editor_saver.set_UnsavedChanges(false);
 		}
@@ -213,7 +212,7 @@ namespace H
 			return num > 0;
 		}
 
-		public bool CardIsDraggable(global::g.w stack)
+		public bool CardIsDraggable(global::g.y stack)
 		{
 			return this.GlobalCollection.get_Stacks().Contains(stack) || this.current_deck.get_Stacks().Contains(stack);
 		}
@@ -228,7 +227,7 @@ namespace H
 				int num2 = Mathf.Min(count, num);
 				if (num2 < count)
 				{
-					Debug.LogWarning(string.Format(Constants.FM(), count, num, card));
+					Debug.LogWarning(string.Format(Constants.Fn(), count, num, card));
 				}
 				if (num2 > 0)
 				{
@@ -275,13 +274,13 @@ namespace H
 		public void SignalSoulTrap()
 		{
 			Dictionary<ArchetypeID, int> dictionary = new Dictionary<ArchetypeID, int>();
-			foreach (global::g.w w in this.deck.get_Stacks())
+			foreach (global::g.y y in this.deck.get_Stacks())
 			{
-				ArchetypeID a = w.get_Archetype().A;
+				ArchetypeID a = y.get_Archetype().A;
 				int count = this.GlobalCollection.GetCount(a);
 				if (count < 0)
 				{
-					Debug.Log(string.Format(Constants.xk(), a, count));
+					Debug.Log(string.Format(Constants.xN(), a, count));
 					dictionary.Add(a, -count);
 				}
 			}
@@ -310,31 +309,31 @@ namespace H
 		public SerializableDeck AsSerializableDeck()
 		{
 			SerializableDeck serializableDeck = new SerializableDeck();
-			global::H.i one = this.get_Composition().GetOne<global::H.i>();
+			global::H.k one = this.get_Composition().GetOne<global::H.k>();
 			serializableDeck.Name = one.get_Name();
 			serializableDeck.A = ((this.local_deck != null) ? this.local_deck.DeckID : null);
 			serializableDeck.Piles = new Dictionary<string, ArchetypeID[]>();
 			serializableDeck.Piles[Constants.d()] = this.cardsAsIdArray();
 			if (this.deck_avatars.get_Avatar() != null)
 			{
-				serializableDeck.Piles[Constants.Fm()] = new ArchetypeID[]
+				serializableDeck.Piles[Constants.FO()] = new ArchetypeID[]
 				{
 					this.deck_avatars.get_Avatar().A
 				};
 			}
 			if (this.local_deck == null)
 			{
-				serializableDeck.Attributes = new MutableAttributes(global::G.P.A);
+				serializableDeck.Attributes = new MutableAttributes();
 			}
 			else
 			{
-				serializableDeck.Attributes = new MutableAttributes(global::G.P.A, this.local_deck);
+				serializableDeck.Attributes = new MutableAttributes(this.local_deck);
 			}
-			if (one is global::d.r)
+			if (one is global::d.t)
 			{
-				serializableDeck.Attributes.GetAttribute<bool?>(global::G.P.L).set_Value(new bool?(((global::d.r)one).get_NameIsAutoGenerated()));
-				serializableDeck.Attributes.ClearAttribute(global::G.P.b);
-				serializableDeck.Attributes.ClearAttribute(global::G.P.F);
+				serializableDeck.Attributes.GetAttribute<bool?>(global::G.R.L).set_Value(new bool?(((global::d.t)one).get_NameIsAutoGenerated()));
+				serializableDeck.Attributes.ClearAttribute(global::G.R.b);
+				serializableDeck.Attributes.ClearAttribute(global::G.R.F);
 			}
 			return serializableDeck;
 		}
@@ -344,37 +343,37 @@ namespace H
 			return (this.local_deck != null) ? this.local_deck.DeckID : null;
 		}
 
-		bool global::H.D.get_CanSave()
+		bool global::H.F.get_CanSave()
 		{
 			return this.get_DeckID() != null || this.current_deck.get_TotalCardCount() > 0;
 		}
 
 		private readonly DataComposition Composition;
 
-		private readonly global::H.d current_deck;
+		private readonly global::H.f current_deck;
 
-		private readonly global::d.v collection;
+		private readonly global::d.x collection;
 
-		private readonly global::g.X GlobalCollection;
+		private readonly global::g.Z GlobalCollection;
 
 		private readonly Archetypes local_collection_avatars;
 
-		private readonly global::g.z deck;
+		private readonly global::H.b deck;
 
-		private readonly global::g.x Collection;
+		private readonly global::g.z Collection;
 
-		private readonly global::H.m deck_colors;
+		private readonly global::H.o deck_colors;
 
-		private readonly global::H.J deck_editor_saver;
+		private readonly global::H.L deck_editor_saver;
 
-		private readonly global::d.r deck_name;
+		private readonly global::d.t deck_name;
 
-		private readonly global::d.s deck_avatars;
+		private readonly global::d.u deck_avatars;
 
-		public readonly global::H.c deckvalidator;
+		public readonly global::H.e deckvalidator;
 
 		[CompilerGenerated]
-		private global::d.S DeckReprintCounts;
+		private global::d.U DeckReprintCounts;
 
 		private DeckComponent local_deck;
 	}
