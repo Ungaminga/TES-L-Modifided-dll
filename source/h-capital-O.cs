@@ -11,7 +11,7 @@ using UnityEngine;
 
 namespace h
 {
-	public class n : VersionedModel
+	public class O : VersionedModel
 	{
 		public bool get_GameEnded()
 		{
@@ -59,13 +59,13 @@ namespace h
 		}
 
 		[CompilerGenerated]
-		public O get_Rewards()
+		public o get_Rewards()
 		{
 			return this.Rewards;
 		}
 
 		[CompilerGenerated]
-		private void set_Rewards(O value)
+		private void set_Rewards(o value)
 		{
 			this.Rewards = value;
 		}
@@ -82,7 +82,7 @@ namespace h
 				this.rewards_version = this.get_Version();
 				if (this.get_Ready())
 				{
-					this.set_Rewards(new O(this.get_GameCompletedNotification()));
+					this.set_Rewards(new o(this.get_GameCompletedNotification()));
 				}
 				else
 				{
@@ -91,7 +91,7 @@ namespace h
 			}
 		}
 
-		public n.Outcomes? get_Outcome()
+		public O.Outcomes? get_Outcome()
 		{
 			this.updateOutcome();
 			return this.outcome;
@@ -124,7 +124,7 @@ namespace h
 					bool flag = false;
 					foreach (KeyValuePair<AccountID, string> keyValuePair in this.get_GameEndedMessage().LoserMap)
 					{
-						if (keyValuePair.Value == Constants.yf())
+						if (keyValuePair.Value == Constants.yH())
 						{
 							flag = true;
 						}
@@ -132,26 +132,26 @@ namespace h
 					}
 					if (flag)
 					{
-						this.outcome = new n.Outcomes?(n.Outcomes.CRASH);
+						this.outcome = new O.Outcomes?(O.Outcomes.CRASH);
 					}
 					else
 					{
-						this.outcome = new n.Outcomes?(n.Outcomes.Draw);
+						this.outcome = new O.Outcomes?(O.Outcomes.Draw);
 					}
 				}
 				else if (this.get_GameEndedMessage().LoserMap.TryGetValue(this.player, out this.lossReason))
 				{
 					this.losers.Add(this.player);
-					this.outcome = new n.Outcomes?(n.Outcomes.Loss);
+					this.outcome = new O.Outcomes?(O.Outcomes.Loss);
 				}
 				else if (this.get_GameEndedMessage().LoserMap.TryGetValue(this.opponent, out this.lossReason))
 				{
 					this.losers.Add(this.opponent);
-					this.outcome = new n.Outcomes?(n.Outcomes.Win);
+					this.outcome = new O.Outcomes?(O.Outcomes.Win);
 				}
 				else
 				{
-					Debug.LogError(Constants.yG());
+					Debug.LogError(Constants.yh());
 				}
 			}
 		}
@@ -165,11 +165,11 @@ namespace h
 		private AccountID opponent;
 
 		[CompilerGenerated]
-		private O Rewards;
+		private o Rewards;
 
 		private ulong rewards_version;
 
-		private n.Outcomes? outcome;
+		private O.Outcomes? outcome;
 
 		private string lossReason;
 

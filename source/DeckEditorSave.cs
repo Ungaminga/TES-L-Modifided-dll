@@ -24,7 +24,7 @@ namespace hydra.deckeditor.commands
 {
 	public class DeckEditorSave : Command
 	{
-		public DeckEditorSave(global::D.o dialogPrefab, global::H.L deckSave)
+		public DeckEditorSave(global::D.P dialogPrefab, global::H.l deckSave)
 		{
 			this.dialogPrefab = dialogPrefab;
 			this.deckSave = deckSave;
@@ -41,7 +41,7 @@ namespace hydra.deckeditor.commands
 			LocalizedString failure = null;
 			if (allow && scene.get_Tutorial() != null)
 			{
-				global::H.Z request = new global::H.Z();
+				global::H.z request = new global::H.z();
 				Coroutine endorsement;
 				scene.get_Tutorial().EndorseRequest(request, out endorsement);
 				if (endorsement != null)
@@ -49,6 +49,7 @@ namespace hydra.deckeditor.commands
 					yield return endorsement;
 				}
 				allow = !request.get_Denied();
+				request = null;
 				request = null;
 			}
 			if (allow)
@@ -59,17 +60,17 @@ namespace hydra.deckeditor.commands
 					yield return executor.Execute(save);
 					if (save.get_Success())
 					{
-						DeckComponent savedDeck = Finder.FindOrThrow<Decks>().get_All()[save.get_SavedDeck().A];
+						DeckComponent deckComponent = Finder.FindOrThrow<Decks>().get_All()[save.get_SavedDeck().A];
 						if (!scene.get_Validator().DeckMeetsMinimumCount())
 						{
-							DataComposition invalidDeckDialogModel = global::h.c.Create(global::L.LT(Constants.Fc(), new object[0]), global::L.LT(Constants.FD(), new object[]
+							DataComposition invalidDeckDialogModel = global::h.D.Create(global::L.LT(Constants.Fd(), new object[0]), global::L.LT(Constants.FE(), new object[]
 							{
 								scene.get_Validator().DeckCountMinimum()
 							}), false, new string[]
 							{
-								Constants.Fd()
+								Constants.Fe()
 							});
-							invalidDeckDialogModel.Add<global::E.p>(new global::E.p(Constants.FE()));
+							invalidDeckDialogModel.Add<global::E.Q>(new global::E.Q(Constants.FF()));
 							ShowDialog dialog = new ShowDialog(this.dialogPrefab, invalidDeckDialogModel);
 							yield return executor.Execute(dialog);
 						}
@@ -78,12 +79,12 @@ namespace hydra.deckeditor.commands
 						Archetypes archetypes = Finder.FindOrThrow<Archetypes>();
 						Directory.CreateDirectory("decks");
 						Pile pile;
-						if (savedDeck.get_Piles().TryGetValue(Constants.d(), out pile))
+						if (deckComponent.get_Piles().TryGetValue(Constants.d(), out pile))
 						{
-							File.Delete(Path.Combine("decks", savedDeck.get_Name() + ".txt"));
+							File.Delete(Path.Combine("decks", deckComponent.get_Name() + ".txt"));
 							foreach (KeyValuePair<ArchetypeID, int> keyValuePair2 in pile)
 							{
-								File.AppendAllText(Path.Combine("decks", savedDeck.get_Name() + ".txt"), string.Concat(new object[]
+								File.AppendAllText(Path.Combine("decks", deckComponent.get_Name() + ".txt"), string.Concat(new object[]
 								{
 									archetypes.get_All()[keyValuePair2.Key].GetOne<NameData>().get_Name(),
 									" ",
@@ -92,19 +93,20 @@ namespace hydra.deckeditor.commands
 								}));
 							}
 						}
-						savedDeck = null;
+						deckComponent = null;
 					}
 					else
 					{
-						DataComposition invalidDeckDialogModel2 = global::h.c.Create(global::L.LT(Constants.Fe(), new object[0]), global::L.LT(Constants.FF(), new object[0]), false, new string[]
+						DataComposition invalidDeckDialogModel2 = global::h.D.Create(global::L.LT(Constants.Ff(), new object[0]), global::L.LT(Constants.FG(), new object[0]), false, new string[]
 						{
-							global::L.LT(Constants.Fd(), new object[0])
+							global::L.LT(Constants.Fe(), new object[0])
 						});
-						invalidDeckDialogModel2.Add<global::E.p>(new global::E.p(Constants.FE()));
+						invalidDeckDialogModel2.Add<global::E.Q>(new global::E.Q(Constants.FF()));
 						ShowDialog dialog2 = new ShowDialog(this.dialogPrefab, invalidDeckDialogModel2);
 						yield return executor.Execute(dialog2);
 						yield return executor.Execute(new ChangeScene(sceneProvider.get_SceneToExitTo()));
 					}
+					save = null;
 					save = null;
 				}
 			}
@@ -120,8 +122,8 @@ namespace hydra.deckeditor.commands
 			yield break;
 		}
 
-		private readonly global::D.o dialogPrefab;
+		private readonly global::D.P dialogPrefab;
 
-		private readonly global::H.L deckSave;
+		private readonly global::H.l deckSave;
 	}
 }

@@ -20,18 +20,18 @@ using UnityEngine.SceneManagement;
 namespace cardinal.src.adventure.draft
 {
 	[RequireComponent(typeof(SubscriptionProvider))]
-	internal class AdventureDeckView : MonoBehaviour, global::H.e
+	internal class AdventureDeckView : MonoBehaviour, global::H.F
 	{
 		[CompilerGenerated]
-		public global::H.e get_Validator()
+		public global::H.F get_Validator()
 		{
-			return this.Validator;
+			return this.<Validator>k__BackingField;
 		}
 
 		[CompilerGenerated]
-		private void set_Validator(global::H.e value)
+		private void set_Validator(global::H.F value)
 		{
-			this.Validator = value;
+			this.<Validator>k__BackingField = value;
 		}
 
 		private void Awake()
@@ -41,8 +41,8 @@ namespace cardinal.src.adventure.draft
 
 		private IEnumerator Start()
 		{
-			this.set_Validator(new global::h.B());
-			if (SceneManager.GetActiveScene().name != Constants.PR())
+			this.set_Validator(new global::h.b());
+			if (SceneManager.GetActiveScene().name != Constants.Ps())
 			{
 				EditDeckProvider provider = DataProvider.Get<EditDeckProvider>();
 				if (provider.get_Mode() == DeckEditorModes.Quest || provider.get_Mode() == DeckEditorModes.Conquest || provider.get_Mode() == DeckEditorModes.Chaos)
@@ -65,14 +65,11 @@ namespace cardinal.src.adventure.draft
 							}));
 						}
 					}
-					global::G.o o = new global::G.o(provider, archetypes, adventure.SelectedAdventure);
-					this.subscriptionProvider.set_Data(o.get_Composition());
-					archetypes = null;
-					adventure = null;
+					global::G.P model = new global::G.P(provider, archetypes, adventure.SelectedAdventure);
+					this.subscriptionProvider.set_Data(model.get_Composition());
 					archetypes = null;
 					adventure = null;
 				}
-				provider = null;
 				provider = null;
 			}
 			else
@@ -95,44 +92,41 @@ namespace cardinal.src.adventure.draft
 			yield break;
 		}
 
-		bool global::H.e.CardMaxInDeck(ArchetypeComponent archetype)
+		bool global::H.F.CardMaxInDeck(ArchetypeComponent archetype)
 		{
 			return this.get_Validator().CardMaxInDeck(archetype);
 		}
 
-		bool global::H.e.IsAddValid(ArchetypeComponent archetype, out LocalizedString failure)
+		bool global::H.F.IsAddValid(ArchetypeComponent archetype, out LocalizedString failure)
 		{
 			return this.get_Validator().IsAddValid(archetype, out failure);
 		}
 
-		bool global::H.e.IsRemoveValid(ArchetypeComponent archetype, out LocalizedString failure)
+		bool global::H.F.IsRemoveValid(ArchetypeComponent archetype, out LocalizedString failure)
 		{
 			return this.get_Validator().IsRemoveValid(archetype, out failure);
 		}
 
-		bool global::H.e.IsSaveValid(out LocalizedString failure)
+		bool global::H.F.IsSaveValid(out LocalizedString failure)
 		{
 			return this.get_Validator().IsSaveValid(out failure);
 		}
 
-		bool global::H.e.DeckMeetsMinimumCount()
+		bool global::H.F.DeckMeetsMinimumCount()
 		{
 			return this.get_Validator().DeckMeetsMinimumCount();
 		}
 
-		int global::H.e.DeckCountMinimum()
+		int global::H.F.DeckCountMinimum()
 		{
 			return this.get_Validator().DeckCountMinimum();
 		}
 
-		int global::H.e.DeckColorMaximum()
+		int global::H.F.DeckColorMaximum()
 		{
 			return this.get_Validator().DeckColorMaximum();
 		}
 
 		private SubscriptionProvider subscriptionProvider;
-
-		[CompilerGenerated]
-		private global::H.e Validator;
 	}
 }

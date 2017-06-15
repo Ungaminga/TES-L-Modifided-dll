@@ -1,13 +1,13 @@
 using System;
 using System.Collections;
 using System.IO;
+using <PrivateImplementationDetails>{BDBF81AA-BD99-47D6-8D6D-4DF8F6818835};
 using cardinal.src.match.effects;
 using dwd.core;
 using dwd.core.commands;
 using dwd.core.data;
 using dwd.core.data.composition;
 using hydra.match.effects;
-using PrivateImplementationDetails;
 using UnityEngine;
 
 namespace cardinal.src.match.commands.misc
@@ -43,7 +43,7 @@ namespace cardinal.src.match.commands.misc
 			MatchEffectConfig deathPrefab = MatchEffects.GetConfig(this.effectPrefabName);
 			float deathDelay = AttackDelays.GetDelay(AttackDelays.DelayType.UnitDeath);
 			yield return new WaitForSeconds(deathDelay);
-			MatchEffectsArea death = new GameObject(Constants.rT()).AddComponent<DeathEffectArea>();
+			MatchEffectsArea death = new GameObject(<<EMPTY_NAME>>.ru()).AddComponent<DeathEffectArea>();
 			death.Init(deathPrefab, this.card);
 			death.Play(null);
 			while (!death.get_Completed())

@@ -52,7 +52,7 @@ namespace cardinal.src.match.commands
 				yield return obj;
 			}
 			yield return new WaitForSeconds(0.75f);
-			ShowCardDeath deathFX = new ShowCardDeath(this.card.get_Composition(), (this.message != null) ? (Constants.rD() + "2") : Constants.rD(), this.isPlayerOne, this.commandToRun);
+			ShowCardDeath deathFX = new ShowCardDeath(this.card.get_Composition(), (this.message != null) ? (Constants.re() + "2") : Constants.re(), this.isPlayerOne, this.commandToRun);
 			while (deathFX.MoveNext())
 			{
 				object obj2 = deathFX.Current;
