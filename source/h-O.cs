@@ -5,9 +5,9 @@ using hydra.enums;
 
 namespace h
 {
-	public class O : VersionedModel
+	public class o : VersionedModel
 	{
-		public O(N playmat)
+		public o(n playmat)
 		{
 			this.phases = playmat;
 		}
@@ -79,7 +79,7 @@ namespace h
 			return base.get_Version();
 		}
 
-		private readonly N phases;
+		private readonly n phases;
 
 		private HydraMatchData matchData;
 

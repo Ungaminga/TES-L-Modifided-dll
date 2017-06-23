@@ -104,17 +104,22 @@ public class CardPathsAnimation : MonoBehaviour, IEnumerator, IApplicationQuitHa
 			{
 				text2 = "player";
 			}
+			string text3 = (text2 != "") ? text.Substring(7) : text;
+			if (text3 == "DefaultLerp" && dataComposition2.GetOne<EntityComponent>().get_Parent() == DataProvider.Get<HydraMatchData>().get_Entities().player.get_Deck())
+			{
+				text3 = "SummonDeck";
+				text2 = "player";
+			}
 			File.AppendAllText("sent.txt", string.Concat(new string[]
 			{
 				(text2 != "") ? text2 : "someone",
 				" played ",
-				(text2 != "") ? text.Substring(7) : text,
+				text3,
 				" card=",
 				dataComposition2.GetOne<NameData>().get_Name(),
 				"\n"
 			}));
 		}
-		File.WriteAllText("cards_count.txt", DataProvider.Get<HydraMatchData>().get_Entities().player.get_Hand().Children.Count.ToString());
 	}
 
 	public void Play()
