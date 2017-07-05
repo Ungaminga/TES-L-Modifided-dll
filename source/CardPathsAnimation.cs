@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using dwd.core;
 using dwd.core.animation.paths;
@@ -12,13 +13,13 @@ using dwd.core.data.providers;
 using dwd.core.match;
 using dwd.core.rendererManagement;
 using dwd.core.rendererManagement.configData;
-using F;
+using f;
 using hydra.match;
 using j;
 using PrivateImplementationDetails;
 using UnityEngine;
 
-public class CardPathsAnimation : MonoBehaviour, IEnumerator, IApplicationQuitHandler, IRenderRequester
+public class CardPathsAnimation : MonoBehaviour, IEnumerator, IRenderRequester, IApplicationQuitHandler
 {
 	[CompilerGenerated]
 	public bool get_Completed()
@@ -55,7 +56,7 @@ public class CardPathsAnimation : MonoBehaviour, IEnumerator, IApplicationQuitHa
 	{
 		if (this.initialized)
 		{
-			throw new InvalidOperationException(Constants.yL());
+			throw new InvalidOperationException(Constants.yz());
 		}
 		this.layer = new MatchCardLayer?(layer);
 		this.set_Completed(false);
@@ -77,60 +78,66 @@ public class CardPathsAnimation : MonoBehaviour, IEnumerator, IApplicationQuitHa
 		}
 		if (curves.Length < 1)
 		{
-			throw new ArgumentException(Constants.yl());
+			throw new ArgumentException(Constants.ZA());
 		}
 		foreach (DataComposition dataComposition in animatingCards)
 		{
 			if (!initial.ContainsKey(dataComposition))
 			{
 				EntityComponent one = dataComposition.GetOne<EntityComponent>();
-				throw new ArgumentException(string.Format(Constants.yM(), one.GetOne<NameData>().get_Name(), one.get_Parent().GetOne<NameData>().get_Name()));
+				throw new ArgumentException(string.Format(Constants.Za(), one.GetOne<NameData>().get_Name(), one.get_Parent().GetOne<NameData>().get_Name()));
 			}
 		}
 		this.animatingCards = new List<DataComposition>(animatingCards);
 		this.curves = curves;
 		this.initialPositions = new Dictionary<DataComposition, VisibilityConfiguration>(initial);
 		this.initialized = true;
+		string text = "";
 		foreach (DataComposition dataComposition2 in animatingCards)
 		{
 			string name = dataComposition2.GetOne<NameData>().get_Name();
-			string text = this.ToString().Replace(" (CardPathsAnimation)", "");
-			string text2 = "";
-			if (text.Substring(0, 6) == "anim_o")
+			string text2 = this.ToString().Replace(" (CardPathsAnimation)", "");
+			string text3 = "";
+			if (text2.Substring(0, 6) == "anim_o")
 			{
-				text2 = "opponent";
+				text3 = "opponent";
 			}
-			else if (text.Substring(0, 6) == "anim_p")
+			else if (text2.Substring(0, 6) == "anim_p")
 			{
-				text2 = "player";
+				text3 = "player";
 			}
-			string text3 = (text2 != "") ? text.Substring(7) : text;
-			if (text3 == "DefaultLerp" && dataComposition2.GetOne<EntityComponent>().get_Parent() == DataProvider.Get<HydraMatchData>().get_Entities().player.get_Deck())
+			string text4 = (text3 != "") ? text2.Substring(7) : text2;
+			if (text3 != "opponent" && CardPathsAnimation.draw_from_deck.Any(new Func<string, bool>(text4.Contains)))
 			{
-				text3 = "SummonDeck";
-				text2 = "player";
+				if (text4 == "DefaultLerp" && dataComposition2.GetOne<EntityComponent>().get_Parent() == DataProvider.Get<HydraMatchData>().get_Entities().player.get_Deck())
+				{
+					text4 = "SummonDeck";
+					text3 = "player";
+				}
+				string.Concat(new string[]
+				{
+					text,
+					(text3 != "") ? text3 : "someone",
+					" played ",
+					text4,
+					" card=",
+					dataComposition2.GetOne<NameData>().get_Name(),
+					"\n"
+				});
 			}
-			File.AppendAllText("sent.txt", string.Concat(new string[]
-			{
-				(text2 != "") ? text2 : "someone",
-				" played ",
-				text3,
-				" card=",
-				dataComposition2.GetOne<NameData>().get_Name(),
-				"\n"
-			}));
 		}
+		File.AppendAllText("sent.txt", text);
 	}
 
 	public void Play()
 	{
 		if (!this.initialized)
 		{
-			throw new InvalidOperationException(Constants.WF());
+			throw new InvalidOperationException(Constants.WR());
 		}
 		if (!float.IsNaN(this.startTime))
 		{
-			throw new InvalidOperationException(Constants.ym());
+			throw new InvalidOperationException(Constants.ZB());
 		}
 		this.startTime = Time.time;
 	}
@@ -169,10 +176,10 @@ public class CardPathsAnimation : MonoBehaviour, IEnumerator, IApplicationQuitHa
 				visibilityConfiguration.Show = this.DoShow;
 				if (this.animatingCards.Contains(key))
 				{
-					visibilityConfiguration.GetOne<global::j.h>().A = true;
-					S.DisplayMode display = this.initialPositions[key].GetOne<S>().display;
-					visibilityConfiguration.GetOne<S>().display = display;
-					visibilityConfiguration.GetOne<q>().A = false;
+					visibilityConfiguration.GetOne<j.V>().A = true;
+					f.E.DisplayMode display = this.initialPositions[key].GetOne<f.E>().display;
+					visibilityConfiguration.GetOne<f.E>().display = display;
+					visibilityConfiguration.GetOne<f.c>().A = false;
 				}
 			}
 			if (num >= this.duration)
@@ -209,12 +216,12 @@ public class CardPathsAnimation : MonoBehaviour, IEnumerator, IApplicationQuitHa
 					}
 					else
 					{
-						T one = keyValuePair.Value.GetOne<T>();
+						F one = keyValuePair.Value.GetOne<F>();
 						animationClip = ((one == null) ? this.curves[this.curves.Length - 1] : one);
 					}
 					if (animationClip != null)
 					{
-						PathAnimator component = new GameObject(Constants.eT(), new Type[]
+						PathAnimator component = new GameObject(Constants.Fe(), new Type[]
 						{
 							typeof(Animation),
 							typeof(dwd.core.animation.paths.Path),
@@ -284,4 +291,13 @@ public class CardPathsAnimation : MonoBehaviour, IEnumerator, IApplicationQuitHa
 	private bool quitting;
 
 	private MatchCardLayer? layer;
+
+	private static readonly string[] draw_from_deck = new string[]
+	{
+		"medallion_presentRight",
+		"deck_present",
+		"mulligan_hand",
+		"surgeStart_reactionPile",
+		"multiPresent_hand"
+	};
 }

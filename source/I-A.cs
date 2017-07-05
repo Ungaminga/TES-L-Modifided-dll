@@ -1,13 +1,14 @@
 using System;
 using System.IO;
 using dwd.core;
+using h;
 using hydra.enums;
 
-namespace h
+namespace I
 {
-	public class o : VersionedModel
+	public class A : VersionedModel
 	{
-		public o(n playmat)
+		public A(Z playmat)
 		{
 			this.phases = playmat;
 		}
@@ -70,7 +71,13 @@ namespace h
 		public void End()
 		{
 			this.set_Active(false);
-			File.AppendAllText("sent.txt", "muligan ended\n");
+			try
+			{
+				File.AppendAllText("sent.txt", "muligan ended\n");
+			}
+			catch
+			{
+			}
 		}
 
 		public override ulong get_Version()
@@ -79,7 +86,7 @@ namespace h
 			return base.get_Version();
 		}
 
-		private readonly n phases;
+		private readonly Z phases;
 
 		private HydraMatchData matchData;
 

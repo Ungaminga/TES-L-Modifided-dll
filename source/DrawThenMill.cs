@@ -7,13 +7,15 @@ using dwd.core.commands;
 using dwd.core.data.composition;
 using dwd.core.localization;
 using dwd.core.match;
+using dwd.core.rendererManagement;
 using dwd.core.rendererManagement.configData;
+using f;
 using PrivateImplementationDetails;
 using UnityEngine;
 
 namespace cardinal.src.match.commands
 {
-	public class DrawThenMill : Command
+	public class DrawThenMill : Command, IRenderRequester
 	{
 		public DrawThenMill(EntityComponent card, CardPresentArea presentArea, Command commandToRun, bool isPlayerOne, string message = null, AnimationClip overrideCurve = null)
 		{
@@ -46,21 +48,38 @@ namespace cardinal.src.match.commands
 				Finder.FindOrThrow<FailFeedbackUGUI>().Show(new LocalizedString(this.message, new object[0]));
 			}
 			this.presentArea.set_Card(this.card);
+			RendererManager render = Finder.FindOrThrow<RendererManager>();
+			render.Register(this);
 			while (presentMove.MoveNext())
 			{
 				object obj = presentMove.Current;
 				yield return obj;
 			}
 			yield return new WaitForSeconds(0.75f);
-			ShowCardDeath deathFX = new ShowCardDeath(this.card.get_Composition(), (this.message != null) ? (Constants.rD() + "2") : Constants.rD(), this.isPlayerOne, this.commandToRun);
+			ShowCardDeath deathFX = new ShowCardDeath(this.card.get_Composition(), (this.message != null) ? (Constants.rO() + "2") : Constants.rO(), this.commandToRun);
 			while (deathFX.MoveNext())
 			{
 				object obj2 = deathFX.Current;
 				yield return obj2;
 			}
 			this.presentArea.set_Card(null);
+			render.Unregister(this);
 			yield break;
 			yield break;
+		}
+
+		public void UpdateCards(IDictionary<DataComposition, VisibilityConfiguration> cards)
+		{
+			VisibilityConfiguration visibilityConfiguration;
+			if (cards.TryGetValue(this.card.get_Composition(), out visibilityConfiguration))
+			{
+				visibilityConfiguration.GetOne<E>().display = E.DisplayMode.Detailed;
+			}
+		}
+
+		public int get_Layer()
+		{
+			return 3;
 		}
 
 		private readonly bool isPlayerOne;

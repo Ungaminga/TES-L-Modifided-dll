@@ -10,7 +10,7 @@ using dwd.core.data;
 using dwd.core.data.providers;
 using dwd.core.deck;
 using dwd.core.localization;
-using G;
+using g;
 using h;
 using H;
 using PrivateImplementationDetails;
@@ -20,16 +20,16 @@ using UnityEngine.SceneManagement;
 namespace cardinal.src.adventure.draft
 {
 	[RequireComponent(typeof(SubscriptionProvider))]
-	internal class AdventureDeckView : MonoBehaviour, global::H.e
+	internal class AdventureDeckView : MonoBehaviour, global::H.q
 	{
 		[CompilerGenerated]
-		public global::H.e get_Validator()
+		public global::H.q get_Validator()
 		{
 			return this.Validator;
 		}
 
 		[CompilerGenerated]
-		private void set_Validator(global::H.e value)
+		private void set_Validator(global::H.q value)
 		{
 			this.Validator = value;
 		}
@@ -41,8 +41,8 @@ namespace cardinal.src.adventure.draft
 
 		private IEnumerator Start()
 		{
-			this.set_Validator(new global::h.B());
-			if (SceneManager.GetActiveScene().name != Constants.PR())
+			this.set_Validator(new global::h.N());
+			if (SceneManager.GetActiveScene().name != Constants.Px())
 			{
 				EditDeckProvider provider = DataProvider.Get<EditDeckProvider>();
 				if (provider.get_Mode() == DeckEditorModes.Quest || provider.get_Mode() == DeckEditorModes.Conquest || provider.get_Mode() == DeckEditorModes.Chaos)
@@ -53,26 +53,26 @@ namespace cardinal.src.adventure.draft
 					{
 						yield return null;
 					}
-					File.Delete("decks\\arena.txt");
+					global::g.a model = new global::g.a(provider, archetypes, adventure.SelectedAdventure);
+					this.subscriptionProvider.set_Data(model.get_Composition());
+					string arena = "";
 					foreach (ArchetypeID id in adventure.SelectedAdventure.get_Collection().A)
 					{
 						if (archetypes.get_All().ContainsKey(id))
 						{
-							File.AppendAllText("decks\\arena.txt", string.Concat(new object[]
-							{
-								archetypes.get_All()[id].GetOne<NameData>().get_Name(),
-								"\r\n"
-							}));
+							arena = arena + archetypes.get_All()[id].GetOne<NameData>().get_Name() + "\r\n";
 						}
 					}
-					global::G.o o = new global::G.o(provider, archetypes, adventure.SelectedAdventure);
-					this.subscriptionProvider.set_Data(o.get_Composition());
-					archetypes = null;
-					adventure = null;
+					try
+					{
+						File.WriteAllText("decks\\arena.txt", arena);
+					}
+					catch
+					{
+					}
 					archetypes = null;
 					adventure = null;
 				}
-				provider = null;
 				provider = null;
 			}
 			else
@@ -86,8 +86,8 @@ namespace cardinal.src.adventure.draft
 					if (tournamentProgress != null)
 					{
 						SerializableDeck deck = tournamentProgress.Deck;
-						global::A.A a = new global::A.A(asyncTournamentsProvider, archetypes2, selectedTournament, deck);
-						this.subscriptionProvider.set_Data(a.get_Composition());
+						global::A.I i = new global::A.I(asyncTournamentsProvider, archetypes2, selectedTournament, deck);
+						this.subscriptionProvider.set_Data(i.get_Composition());
 					}
 				}
 			}
@@ -95,37 +95,37 @@ namespace cardinal.src.adventure.draft
 			yield break;
 		}
 
-		bool global::H.e.CardMaxInDeck(ArchetypeComponent archetype)
+		bool global::H.q.CardMaxInDeck(ArchetypeComponent archetype)
 		{
 			return this.get_Validator().CardMaxInDeck(archetype);
 		}
 
-		bool global::H.e.IsAddValid(ArchetypeComponent archetype, out LocalizedString failure)
+		bool global::H.q.IsAddValid(ArchetypeComponent archetype, out LocalizedString failure)
 		{
 			return this.get_Validator().IsAddValid(archetype, out failure);
 		}
 
-		bool global::H.e.IsRemoveValid(ArchetypeComponent archetype, out LocalizedString failure)
+		bool global::H.q.IsRemoveValid(ArchetypeComponent archetype, out LocalizedString failure)
 		{
 			return this.get_Validator().IsRemoveValid(archetype, out failure);
 		}
 
-		bool global::H.e.IsSaveValid(out LocalizedString failure)
+		bool global::H.q.IsSaveValid(out LocalizedString failure)
 		{
 			return this.get_Validator().IsSaveValid(out failure);
 		}
 
-		bool global::H.e.DeckMeetsMinimumCount()
+		bool global::H.q.DeckMeetsMinimumCount()
 		{
 			return this.get_Validator().DeckMeetsMinimumCount();
 		}
 
-		int global::H.e.DeckCountMinimum()
+		int global::H.q.DeckCountMinimum()
 		{
 			return this.get_Validator().DeckCountMinimum();
 		}
 
-		int global::H.e.DeckColorMaximum()
+		int global::H.q.DeckColorMaximum()
 		{
 			return this.get_Validator().DeckColorMaximum();
 		}
@@ -133,6 +133,6 @@ namespace cardinal.src.adventure.draft
 		private SubscriptionProvider subscriptionProvider;
 
 		[CompilerGenerated]
-		private global::H.e Validator;
+		private global::H.q Validator;
 	}
 }

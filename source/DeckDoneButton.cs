@@ -94,7 +94,7 @@ namespace cardinal.src.deckEditor
 				foreach (KeyValuePair<DeckID, DeckComponent> keyValuePair in Finder.FindOrThrow<Decks>().get_All())
 				{
 					Pile pile;
-					if (keyValuePair.Key != null && keyValuePair.Value.get_Piles().TryGetValue(Constants.d(), out pile))
+					if (keyValuePair.Key != null && keyValuePair.Value.get_Piles().TryGetValue(Constants.K(), out pile))
 					{
 						foreach (KeyValuePair<ArchetypeID, int> keyValuePair2 in pile)
 						{
