@@ -92,41 +92,41 @@ public class CardPathsAnimation : MonoBehaviour, IEnumerator, IRenderRequester, 
 		this.curves = curves;
 		this.initialPositions = new Dictionary<DataComposition, VisibilityConfiguration>(initial);
 		this.initialized = true;
-		string text = "";
+		string output = "";
 		foreach (DataComposition dataComposition2 in animatingCards)
 		{
 			string name = dataComposition2.GetOne<NameData>().get_Name();
-			string text2 = this.ToString().Replace(" (CardPathsAnimation)", "");
-			string text3 = "";
-			if (text2.Substring(0, 6) == "anim_o")
+			string text = this.ToString().Replace(" (CardPathsAnimation)", "");
+			string text2 = "";
+			if (text.Substring(0, 6) == "anim_o")
 			{
-				text3 = "opponent";
+				text2 = "opponent";
 			}
-			else if (text2.Substring(0, 6) == "anim_p")
+			else if (text.Substring(0, 6) == "anim_p")
 			{
-				text3 = "player";
+				text2 = "player";
 			}
-			string text4 = (text3 != "") ? text2.Substring(7) : text2;
-			if (text3 != "opponent" && CardPathsAnimation.draw_from_deck.Any(new Func<string, bool>(text4.Contains)))
+			string text3 = (text2 != "") ? text.Substring(7) : text;
+			if (text2 != "opponent" && CardPathsAnimation.draw_from_deck.Any(new Func<string, bool>(text3.Contains)))
 			{
-				if (text4 == "DefaultLerp" && dataComposition2.GetOne<EntityComponent>().get_Parent() == DataProvider.Get<HydraMatchData>().get_Entities().player.get_Deck())
+				if (text3 == "DefaultLerp" && dataComposition2.GetOne<EntityComponent>().get_Parent() == DataProvider.Get<HydraMatchData>().get_Entities().player.get_Deck())
 				{
-					text4 = "SummonDeck";
-					text3 = "player";
+					text3 = "SummonDeck";
+					text2 = "player";
 				}
-				string.Concat(new string[]
+				output = string.Concat(new string[]
 				{
-					text,
-					(text3 != "") ? text3 : "someone",
+					output,
+					(text2 != "") ? text2 : "someone",
 					" played ",
-					text4,
+					text3,
 					" card=",
 					dataComposition2.GetOne<NameData>().get_Name(),
 					"\n"
 				});
 			}
 		}
-		File.AppendAllText("sent.txt", text);
+		File.AppendAllText("sent.txt", output);
 	}
 
 	public void Play()
@@ -298,6 +298,8 @@ public class CardPathsAnimation : MonoBehaviour, IEnumerator, IRenderRequester, 
 		"deck_present",
 		"mulligan_hand",
 		"surgeStart_reactionPile",
-		"multiPresent_hand"
+		"multiPresent_hand",
+		"drag_drop_lane_01",
+		"DefaultLerp"
 	};
 }
