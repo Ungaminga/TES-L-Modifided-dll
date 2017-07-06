@@ -92,41 +92,42 @@ public class CardPathsAnimation : MonoBehaviour, IEnumerator, IRenderRequester, 
 		this.curves = curves;
 		this.initialPositions = new Dictionary<DataComposition, VisibilityConfiguration>(initial);
 		this.initialized = true;
-		string output = "";
+		string text = "";
+		EntityComponent deck = DataProvider.Get<HydraMatchData>().get_Entities().player.get_Deck();
 		foreach (DataComposition dataComposition2 in animatingCards)
 		{
 			string name = dataComposition2.GetOne<NameData>().get_Name();
-			string text = this.ToString().Replace(" (CardPathsAnimation)", "");
-			string text2 = "";
-			if (text.Substring(0, 6) == "anim_o")
+			string text2 = this.ToString().Replace(" (CardPathsAnimation)", "");
+			string text3 = "";
+			if (text2.Substring(0, 6) == "anim_o")
 			{
-				text2 = "opponent";
+				text3 = "opponent";
 			}
-			else if (text.Substring(0, 6) == "anim_p")
+			else if (text2.Substring(0, 6) == "anim_p")
 			{
-				text2 = "player";
+				text3 = "player";
 			}
-			string text3 = (text2 != "") ? text.Substring(7) : text;
-			if (text2 != "opponent" && CardPathsAnimation.draw_from_deck.Any(new Func<string, bool>(text3.Contains)))
+			string text4 = (text3 != "") ? text2.Substring(7) : text2;
+			if (text3 != "opponent" && CardPathsAnimation.draw_from_deck.Any(new Func<string, bool>(text2.Contains)))
 			{
-				if (text3 == "DefaultLerp" && dataComposition2.GetOne<EntityComponent>().get_Parent() == DataProvider.Get<HydraMatchData>().get_Entities().player.get_Deck())
+				if (text4 == "DefaultLerp" && dataComposition2.GetOne<EntityComponent>().get_Parent() == deck)
 				{
-					text3 = "SummonDeck";
-					text2 = "player";
+					text4 = "SummonDeck";
+					text3 = "player";
 				}
-				output = string.Concat(new string[]
+				text = string.Concat(new string[]
 				{
-					output,
-					(text2 != "") ? text2 : "someone",
+					text,
+					(text3 != "") ? text3 : "someone",
 					" played ",
-					text3,
+					text4,
 					" card=",
 					dataComposition2.GetOne<NameData>().get_Name(),
 					"\n"
 				});
 			}
 		}
-		File.AppendAllText("sent.txt", output);
+		File.AppendAllText("sent.txt", text);
 	}
 
 	public void Play()
