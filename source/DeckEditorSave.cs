@@ -37,23 +37,21 @@ namespace hydra.deckeditor.commands
 			DeckEditScene scene = Finder.FindOrThrow<DeckEditScene>();
 			EditDeckProvider sceneProvider = DataProvider.Get<EditDeckProvider>();
 			CommandExecutor executor = Finder.FindOrThrow<CommandExecutor>();
-			bool allow = true;
+			bool flag = true;
 			LocalizedString failure = null;
-			if (allow && scene.get_Tutorial() != null)
+			if (flag && scene.get_Tutorial() != null)
 			{
 				global::h.L request = new global::h.L();
-				Coroutine endorsement;
-				scene.get_Tutorial().EndorseRequest(request, out endorsement);
-				if (endorsement != null)
+				Coroutine coroutine;
+				scene.get_Tutorial().EndorseRequest(request, out coroutine);
+				if (coroutine != null)
 				{
-					yield return endorsement;
+					yield return coroutine;
 				}
-				allow = !request.get_Denied();
-				request = null;
-				request = null;
+				flag = !request.get_Denied();
 				request = null;
 			}
-			if (allow)
+			if (flag)
 			{
 				if (scene.get_Validator().IsSaveValid(out failure))
 				{
@@ -64,53 +62,53 @@ namespace hydra.deckeditor.commands
 						DeckComponent deckComponent = Finder.FindOrThrow<Decks>().get_All()[save.get_SavedDeck().A];
 						if (!scene.get_Validator().DeckMeetsMinimumCount())
 						{
-							DataComposition invalidDeckDialogModel = global::h.o.Create(global::L.LT(Constants.FN()), global::L.LT(Constants.Fn(), new object[]
+							DataComposition dataComposition = global::h.o.Create(global::L.LT(Constants.FN()), global::L.LT(Constants.Fn(), new object[]
 							{
 								scene.get_Validator().DeckCountMinimum()
 							}), false, new string[]
 							{
 								Constants.FO()
 							});
-							invalidDeckDialogModel.Add<global::e.b>(new global::e.b(Constants.Fo()));
-							ShowDialog dialog = new ShowDialog(this.dialogPrefab, invalidDeckDialogModel);
-							yield return executor.Execute(dialog);
+							dataComposition.Add<global::e.b>(new global::e.b(Constants.Fo()));
+							ShowDialog command = new ShowDialog(this.dialogPrefab, dataComposition);
+							yield return executor.Execute(command);
 						}
 						this.Success = true;
 						this.deckSave.set_UnsavedChanges(false);
 						Archetypes archetypes = Finder.FindOrThrow<Archetypes>();
-						Directory.CreateDirectory("decks");
 						Pile pile;
-						if (deckComponent.get_Piles().TryGetValue(Constants.d(), out pile))
+						if (deckComponent != null && deckComponent.get_Piles().TryGetValue(Constants.K(), out pile))
 						{
-							string deck = "";
+							string text = "";
 							foreach (KeyValuePair<ArchetypeID, int> keyValuePair2 in pile)
 							{
-								deck = string.Concat(new object[]
+								text = string.Concat(new object[]
 								{
-									deck,
+									text,
 									archetypes.get_All()[keyValuePair2.Key].GetOne<NameData>().get_Name(),
 									" ",
 									keyValuePair2.Value,
 									"\r\n"
 								});
 							}
-							File.WriteAllText(Path.Combine("decks", deckComponent.get_Name() + ".txt"), deck);
+							File.WriteAllText(Path.Combine("decks", deckComponent.get_Name() + ".txt"), text);
 						}
 						deckComponent = null;
+						pile = null;
+						deckComponent = null;
+						pile = null;
 					}
 					else
 					{
-						DataComposition invalidDeckDialogModel2 = global::h.o.Create(global::L.LT(Constants.FP()), global::L.LT(Constants.Fp()), false, new string[]
+						DataComposition dataComposition2 = global::h.o.Create(global::L.LT(Constants.FP()), global::L.LT(Constants.Fp()), false, new string[]
 						{
 							global::L.LT(Constants.FO())
 						});
-						invalidDeckDialogModel2.Add<global::e.b>(new global::e.b(Constants.Fo()));
-						ShowDialog dialog2 = new ShowDialog(this.dialogPrefab, invalidDeckDialogModel2);
-						yield return executor.Execute(dialog2);
+						dataComposition2.Add<global::e.b>(new global::e.b(Constants.Fo()));
+						ShowDialog command2 = new ShowDialog(this.dialogPrefab, dataComposition2);
+						yield return executor.Execute(command2);
 						yield return executor.Execute(new ChangeScene(sceneProvider.get_SceneToExitTo()));
 					}
-					save = null;
-					save = null;
 					save = null;
 				}
 			}
