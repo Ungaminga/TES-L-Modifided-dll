@@ -3,7 +3,9 @@ using System.Collections;
 using System.IO;
 using System.Runtime.CompilerServices;
 using A;
+using d;
 using dwd.core;
+using dwd.core.account;
 using dwd.core.archetypes;
 using dwd.core.asynctournament;
 using dwd.core.data;
@@ -53,19 +55,21 @@ namespace cardinal.src.adventure.draft
 					{
 						yield return null;
 					}
-					global::g.a model = new global::g.a(provider, archetypes, adventure.SelectedAdventure);
-					this.subscriptionProvider.set_Data(model.get_Composition());
-					string arena = "";
-					foreach (ArchetypeID id in adventure.SelectedAdventure.get_Collection().A)
+					global::g.a a = new global::g.a(provider, archetypes, adventure.SelectedAdventure);
+					this.subscriptionProvider.set_Data(a.get_Composition());
+					global::d.M one = Finder.FindOrThrow<AccountProvider>().get_Account().GetOne<global::d.M>();
+					int num = (int)((provider.get_Mode() == DeckEditorModes.Quest) ? one.get_PvERank() : one.get_PvPRank());
+					string text = "rank=" + num + "\n";
+					foreach (ArchetypeID key in adventure.SelectedAdventure.get_Collection().A)
 					{
-						if (archetypes.get_All().ContainsKey(id))
+						if (archetypes.get_All().ContainsKey(key))
 						{
-							arena = arena + archetypes.get_All()[id].GetOne<NameData>().get_Name() + "\r\n";
+							text = text + archetypes.get_All()[key].GetOne<NameData>().get_Name() + "\r\n";
 						}
 					}
 					try
 					{
-						File.WriteAllText("decks\\arena.txt", arena);
+						File.WriteAllText((provider.get_Mode() == DeckEditorModes.Quest) ? "decks\\arena-solo.txt" : "decks\\arena.txt", text);
 					}
 					catch
 					{
