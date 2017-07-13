@@ -15,6 +15,7 @@ using dwd.core.localization;
 using g;
 using h;
 using H;
+using hydra.enums;
 using PrivateImplementationDetails;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -58,7 +59,7 @@ namespace cardinal.src.adventure.draft
 					global::g.a a = new global::g.a(provider, archetypes, adventure.SelectedAdventure);
 					this.subscriptionProvider.set_Data(a.get_Composition());
 					global::d.M one = Finder.FindOrThrow<AccountProvider>().get_Account().GetOne<global::d.M>();
-					int num = (int)((provider.get_Mode() == DeckEditorModes.Quest) ? one.get_PvERank() : one.get_PvPRank());
+					int num = (int)((ArenaTiers)9 - ((provider.get_Mode() == DeckEditorModes.Quest) ? one.get_PvERank() : one.get_PvPRank()));
 					string text = "rank=" + num + "\n";
 					foreach (ArchetypeID key in adventure.SelectedAdventure.get_Collection().A)
 					{
@@ -76,7 +77,10 @@ namespace cardinal.src.adventure.draft
 					}
 					archetypes = null;
 					adventure = null;
+					archetypes = null;
+					adventure = null;
 				}
+				provider = null;
 				provider = null;
 			}
 			else
