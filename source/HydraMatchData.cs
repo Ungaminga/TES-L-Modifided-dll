@@ -9,6 +9,7 @@ using cardinal.src.match.commands;
 using cardinal.src.match.commands.misc;
 using cardinal.src.match.interaction;
 using cardinal.src.PROTO.match;
+using cardinal.src.ranked;
 using dwd.core;
 using dwd.core.account;
 using dwd.core.attributes;
@@ -20,6 +21,7 @@ using dwd.core.match;
 using dwd.core.match.data;
 using dwd.core.match.messages;
 using e;
+using f;
 using g;
 using h;
 using hydra.enums;
@@ -274,7 +276,7 @@ public class HydraMatchData : DataProvider
 					text2 = text2 + ", " + colors.ToString();
 				}
 			}
-			AccountID activePlayer = this.get_Entities().Playmat.GetAttribute<AccountID>(global::g.D.activePlayer).get_Value();
+			AccountID value2 = this.get_Entities().Playmat.GetAttribute<AccountID>(global::g.D.activePlayer).get_Value();
 			File.AppendAllText("sent.txt", string.Concat(new string[]
 			{
 				"=== Started Match; player = ",
@@ -284,7 +286,11 @@ public class HydraMatchData : DataProvider
 				"; opponent_deck = ",
 				text2,
 				"; first player = ",
-				(activePlayer == this.get_Player1AccountID()) ? "you" : "opponent",
+				(value2 == this.get_Player1AccountID()) ? "you" : "opponent",
+				"; rank = ",
+				global::f.Y.RankToNumber(Finder.FindOrThrow<RankProvider>().get_CurrentRank()),
+				"; opponent_rank = ",
+				global::f.Y.RankToNumber(this.get_Options().GetRank(this.get_Player2AccountID())),
 				"; options = ",
 				text,
 				" ===\n"
